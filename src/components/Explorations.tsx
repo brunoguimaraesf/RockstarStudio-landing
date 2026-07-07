@@ -88,6 +88,7 @@ export default function Explorations() {
   const sectionRef = useRef<HTMLElement>(null)
   const pinRef = useRef<HTMLDivElement>(null)
   const spreadRef = useRef<HTMLDivElement>(null)
+  const autoSpreadRef = useRef(false)
   const [selected, setSelected] = useState<number | null>(null)
 
   useEffect(() => {
@@ -141,8 +142,70 @@ export default function Explorations() {
       spread
         .to('.playground-copy', { scale: 0.94, opacity: 0.92, duration: 0.24 }, 0)
         .to('.playground-haze', { opacity: 0.7, scale: 1.18, duration: 0.34 }, 0)
+
     }, sectionRef)
     return () => ctx.revert()
+  }, [])
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    let autoScrollTween: gsap.core.Tween | undefined
+    let delay = 0
+    const previousScrollBehavior = document.documentElement.style.scrollBehavior
+
+    const setScrollY = (y: number) => {
+      window.scrollTo(0, y)
+      document.documentElement.scrollTop = y
+      document.body.scrollTop = y
+      ScrollTrigger.update()
+    }
+
+    const runAutoSpread = () => {
+      if (autoSpreadRef.current) return
+      autoSpreadRef.current = true
+
+      delay = window.setTimeout(() => {
+        document.documentElement.style.scrollBehavior = 'auto'
+        ScrollTrigger.refresh()
+
+        const sectionTop = section.offsetTop
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight
+        const targetY = Math.min(sectionTop + section.offsetHeight * 0.42, maxScroll)
+        const scrollState = { y: window.scrollY }
+
+        autoScrollTween = gsap.to(scrollState, {
+          y: targetY,
+          duration: 1.65,
+          ease: 'power2.inOut',
+          overwrite: 'auto',
+          onUpdate: () => setScrollY(scrollState.y),
+          onComplete: () => {
+            document.documentElement.style.scrollBehavior = previousScrollBehavior
+          },
+        })
+      }, 180)
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          runAutoSpread()
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.18 },
+    )
+
+    observer.observe(section)
+
+    return () => {
+      observer.disconnect()
+      window.clearTimeout(delay)
+      autoScrollTween?.kill()
+      document.documentElement.style.scrollBehavior = previousScrollBehavior
+    }
   }, [])
 
   return (

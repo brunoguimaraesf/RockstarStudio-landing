@@ -76,10 +76,60 @@ export default function Hero({ active }: HeroProps) {
           { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.34 },
           0.27,
         )
+
     }, rootRef)
 
     ScrollTrigger.refresh()
     return () => ctx.revert()
+  }, [active])
+
+  useEffect(() => {
+    if (!active) return
+
+    let autoScrollTween: gsap.core.Tween | undefined
+    let raf = 0
+    const previousScrollBehavior = document.documentElement.style.scrollBehavior
+
+    const setScrollY = (y: number) => {
+      window.scrollTo(0, y)
+      document.documentElement.scrollTop = y
+      document.body.scrollTop = y
+      ScrollTrigger.update()
+    }
+
+    const autoIntroDelay = window.setTimeout(() => {
+      raf = requestAnimationFrame(() => {
+        const root = rootRef.current
+        if (!root) return
+
+        const heroTop = root.offsetTop
+
+        document.documentElement.style.scrollBehavior = 'auto'
+        ScrollTrigger.refresh()
+        setScrollY(heroTop)
+
+        const scrollState = { y: heroTop }
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight
+        const targetY = Math.min(heroTop + root.offsetHeight * 0.58, maxScroll)
+
+        autoScrollTween = gsap.to(scrollState, {
+          y: targetY,
+          duration: 1.85,
+          ease: 'power2.inOut',
+          onUpdate: () => setScrollY(scrollState.y),
+          onComplete: () => {
+            document.documentElement.style.scrollBehavior = previousScrollBehavior
+          },
+        })
+      })
+    }, 900)
+
+    return () => {
+      window.clearTimeout(autoIntroDelay)
+      cancelAnimationFrame(raf)
+      autoScrollTween?.kill()
+      document.documentElement.style.scrollBehavior = previousScrollBehavior
+    }
   }, [active])
 
   return (
@@ -154,6 +204,4 @@ export default function Hero({ active }: HeroProps) {
     </section>
   )
 }
-
-
 
