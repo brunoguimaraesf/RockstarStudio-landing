@@ -1,0 +1,98 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 0 0% 5%; /* #0D0D0D preto profundo */
+  --surface: 0 0% 8%; /* #141414 blocos de leitura */
+  --text: 60 20% 95%; /* #F5F5F0 off-white */
+  --muted: 45 5% 60%;
+  --stroke: 270 10% 14%; /* stroke com tom roxo sutil */
+  --accent: 265 92% 58%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-bg text-text-primary font-body antialiased;
+}
+
+::selection {
+  background: #7b2ff7;
+  color: #f5f5f0;
+}
+
+/* Roxo elétrico do estúdio — anéis, hovers, detalhes */
+.accent-gradient {
+  background: linear-gradient(90deg, #9d4edd 0%, #7b2ff7 100%);
+}
+
+.text-outline {
+  -webkit-text-stroke: 1px rgba(245, 245, 240, 0.65);
+  color: transparent;
+}
+
+@keyframes scroll-down {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(200%);
+  }
+}
+
+.animate-scroll-down {
+  animation: scroll-down 1.5s ease-in-out infinite;
+}
+
+@keyframes role-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-role-fade-in {
+  animation: role-fade-in 0.4s ease-out;
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-shift {
+  background: linear-gradient(90deg, #9d4edd, #7b2ff7, #9d4edd);
+  background-size: 200% 200%;
+  animation: gradient-shift 6s ease infinite;
+}
+
+/* Halftone dot overlay for work cards */
+.halftone {
+  background-image: radial-gradient(circle, #000 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-scroll-down,
+  .animate-role-fade-in,
+  .animate-gradient-shift {
+    animation: none;
+  }
+}
