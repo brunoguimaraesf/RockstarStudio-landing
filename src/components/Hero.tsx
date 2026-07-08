@@ -175,9 +175,8 @@ export default function Hero({ active }: HeroProps) {
               em Rio Verde - GO.
             </p>
 
-            <p className="hero-copy hero-description mb-12 max-w-md text-sm text-muted opacity-0 md:text-base">
-              Nail art autoral com estética dark, detalhes cromados e acabamento de
-              impacto sua mão como assinatura visual.
+            <p className="hero-copy hero-description mb-12 max-w-xl text-sm text-muted opacity-0 md:text-base">
+              Para quem sempre sentiu demais para caber no básico, cada detalhe nas unhas vira uma forma de existir em voz alta.
             </p>
 
             <div className="hero-copy hero-actions inline-flex flex-col gap-4 opacity-0 sm:flex-row">

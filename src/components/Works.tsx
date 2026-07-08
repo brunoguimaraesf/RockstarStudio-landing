@@ -1,6 +1,7 @@
 ﻿import { motion } from 'framer-motion'
 import SectionHeader from './SectionHeader'
 import { INSTAGRAM_URL } from '../constants'
+import { usePhotos } from '../lib/usePhotos'
 import { WORK_IMAGES } from '../media'
 
 const FEATURED = [
@@ -35,6 +36,10 @@ const FEATURED = [
 ]
 
 export default function Works() {
+  const photos = usePhotos()
+  const cmsFeatured = (photos ?? []).filter((photo) => photo.featured)
+  const gridImages = cmsFeatured.length > 0 ? cmsFeatured : WORK_IMAGES
+
   return (
     <section
       id="trabalhos"
@@ -48,7 +53,7 @@ export default function Works() {
           title="Trabalhos em"
           italic="destaque"
           subtext="Uma seleção de nail arts do studio do conceito ao acabamento."
-          cta={{ label: 'Ver tudo', href: INSTAGRAM_URL, external: true }}
+          cta={{ label: 'Ver galeria', href: '/galeria' }}
         />
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
@@ -112,7 +117,7 @@ export default function Works() {
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-          {WORK_IMAGES.map((image, i) => (
+          {gridImages.map((image, i) => (
             <motion.a
               key={image.src}
               href={INSTAGRAM_URL}
@@ -141,3 +146,4 @@ export default function Works() {
     </section>
   )
 }
+
