@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchPhotos, type GalleryPhoto } from './sanity'
 
 // undefined = carregando | null = CMS indisponivel/nao configurado | [] = CMS sem fotos
