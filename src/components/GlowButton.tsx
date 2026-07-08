@@ -1,4 +1,5 @@
 ﻿import type { ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 
 type GlowButtonProps = {
   href: string
@@ -24,12 +25,9 @@ export default function GlowButton({
     cta: 'border-2 border-transparent bg-blood font-medium text-white shadow-[0_0_24px_rgba(196,30,58,0.3)] transition-shadow group-hover:bg-[#d92645] group-hover:shadow-[0_0_44px_rgba(196,30,58,0.55)]',
   }[variant]
 
-  return (
-    <a
-      href={href}
-      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-      className={`group relative inline-flex transition-transform duration-300 hover:scale-105 ${className}`}
-    >
+  const wrapperClassName = `group relative inline-flex transition-transform duration-300 hover:scale-105 ${className}`
+  const content = (
+    <>
       {variant !== 'cta' && (
         <span className="animate-gradient-shift absolute -inset-[2px] rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
       )}
@@ -38,6 +36,24 @@ export default function GlowButton({
       >
         {children}
       </span>
+    </>
+  )
+
+  if (!external && href.startsWith('/')) {
+    return (
+      <Link to={href} className={wrapperClassName}>
+        {content}
+      </Link>
+    )
+  }
+
+  return (
+    <a
+      href={href}
+      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      className={wrapperClassName}
+    >
+      {content}
     </a>
   )
 }
