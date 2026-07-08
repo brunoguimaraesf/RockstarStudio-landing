@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Landing site for Rockstar Studio, a nail art studio in Rio Verde - GO, Brazil. Portuguese-language marketing site: portfolio gallery, artist bio, client types, Instagram feed, location/contact. There is no backend and no CMS; content is maintained in code through `src/constants.ts` and `src/media.ts`.
+Landing site for Rockstar Studio, a nail art studio in Rio Verde - GO, Brazil. Portuguese-language marketing site: portfolio gallery, artist bio, client types, Instagram feed, location/contact. There is no backend of our own. Gallery photos can be served by Sanity (runtime fetch from its CDN, optional — see `docs/CMS-SETUP.md`); all other content, plus the gallery's permanent fallback, is maintained in code through `src/constants.ts` and `src/media.ts`.
 
 ## Commands
 
@@ -21,7 +21,7 @@ There is no test suite configured in this repo. There is no `typecheck` script; 
 
 **Routes.** `App.tsx` uses `react-router-dom` with `/` for the landing page and `/galeria` for the portfolio gallery. `pages/Index.tsx` composes the home as a flat stack of sections (Hero, Works, ProcessCare, AboutArtist, ClientTypes, Explorations, InstagramFeed, Stats, ContactLocation, Footer). `pages/Gallery.tsx` has its own compact top bar because the main navbar anchors target home sections.
 
-**Gallery content.** The gallery and Works fallback grid are fed by `WORK_IMAGES` in `src/media.ts`. To add or remove portfolio photos, place the asset under `public/images/works/` and update `WORK_IMAGES`.
+**Gallery content.** `pages/Gallery.tsx` calls `usePhotos()` (`src/lib/usePhotos.ts`), which wraps the fetch-based Sanity GROQ client in `src/lib/sanity.ts`. Contract: `undefined` = loading (skeleton grid), `null` or empty = CMS unavailable/not configured (falls back to `WORK_IMAGES` from `src/media.ts`), non-empty array = CMS photos. Photos with `featured: true` form a synthetic "Destaques" category shown first. The CMS is enabled by `VITE_SANITY_PROJECT_ID` (build-time env var — production needs it set on the host plus a redeploy). The home's Works section is static (editorial cards linking to `/galeria?categoria=...`) and does not consume the CMS. The Sanity Studio lives in `studio/` (separate npm project, outside the site build); `scripts/migrate-to-sanity.mjs` is the one-shot upload of the original photos; setup steps are in `docs/CMS-SETUP.md` and the owner's manual in `docs/GUIA-DA-DONA.md`. To change the fallback photos, edit `WORK_IMAGES` and `public/images/works/`.
 
 **Loading gate.** `Index.tsx` holds `isLoading` state; `LoadingScreen` renders until it calls `onComplete`, which flips `Hero`'s `active` prop. Scroll-triggered animations in `Hero` are gated on `active` so they do not run before the loading screen finishes.
 
