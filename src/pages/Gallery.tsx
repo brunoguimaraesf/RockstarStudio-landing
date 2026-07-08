@@ -4,9 +4,11 @@ import { motion } from 'framer-motion'
 import Footer from '../components/Footer'
 import GlowButton from '../components/GlowButton'
 import { WHATSAPP_URL } from '../constants'
+import { usePhotos } from '../lib/usePhotos'
 import { WORK_IMAGES } from '../media'
 
 const ALL_CATEGORIES = 'Todas'
+const FEATURED_CATEGORY = 'Destaques'
 
 type GalleryItem = {
   title: string
@@ -46,7 +48,17 @@ function GalleryGrid({ photos }: { photos: GalleryItem[] }) {
 
 export default function Gallery() {
   const [searchParams, setSearchParams] = useSearchParams()
-  const items: GalleryItem[] = WORK_IMAGES
+  const photos = usePhotos()
+  const isLoading = photos === undefined
+  // null/vazio = CMS indisponível ou sem fotos → fallback estático de media.ts
+  const items: GalleryItem[] = useMemo(
+    () => (photos && photos.length > 0 ? photos : WORK_IMAGES),
+    [photos],
+  )
+  const featuredPhotos = useMemo(
+    () => (photos ?? []).filter((photo) => photo.featured),
+    [photos],
+  )
 
   const categories = useMemo(() => {
     const unique: string[] = []
@@ -56,10 +68,18 @@ export default function Gallery() {
     return unique
   }, [items])
 
+  const selectableCategories = useMemo(
+    () =>
+      featuredPhotos.length > 0
+        ? [FEATURED_CATEGORY, ...categories]
+        : categories,
+    [featuredPhotos, categories],
+  )
+
   const categoryParam =
     searchParams.get('categoria') ?? searchParams.get('category')
   const requestedCategory =
-    categoryParam && categories.includes(categoryParam)
+    categoryParam && selectableCategories.includes(categoryParam)
       ? categoryParam
       : ALL_CATEGORIES
   const [activeCategory, setActiveCategory] = useState(requestedCategory)
@@ -72,19 +92,22 @@ export default function Gallery() {
     setActiveCategory(requestedCategory)
   }, [requestedCategory])
 
-  const groupedItems = useMemo(
-    () =>
-      categories.map((category) => ({
-        category,
-        photos: items.filter((item) => item.category === category),
-      })),
-    [categories, items],
-  )
+  const groupedItems = useMemo(() => {
+    const groups = categories.map((category) => ({
+      category,
+      photos: items.filter((item) => item.category === category),
+    }))
+    return featuredPhotos.length > 0
+      ? [{ category: FEATURED_CATEGORY, photos: featuredPhotos }, ...groups]
+      : groups
+  }, [categories, items, featuredPhotos])
 
   const filtered =
     activeCategory === ALL_CATEGORIES
       ? items
-      : items.filter((item) => item.category === activeCategory)
+      : activeCategory === FEATURED_CATEGORY
+        ? featuredPhotos
+        : items.filter((item) => item.category === activeCategory)
 
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category)
@@ -154,9 +177,9 @@ export default function Gallery() {
             </p>
           </motion.div>
 
-          {categories.length > 0 && (
+          {!isLoading && categories.length > 0 && (
             <div className="mt-10 flex flex-wrap gap-2.5">
-              {[ALL_CATEGORIES, ...categories].map((category) => (
+              {[ALL_CATEGORIES, ...selectableCategories].map((category) => (
                 <button
                   key={category}
                   type="button"
@@ -174,7 +197,16 @@ export default function Gallery() {
             </div>
           )}
 
-          {filtered.length === 0 ? (
+          {isLoading ? (
+            <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="aspect-[4/5] animate-pulse rounded-2xl border border-stroke bg-surface"
+                />
+              ))}
+            </div>
+          ) : filtered.length === 0 ? (
             <div className="mt-10 flex flex-col items-center gap-3 rounded-3xl border border-stroke bg-surface px-6 py-20 text-center">
               <p className="font-display text-2xl italic text-text-primary">
                 Nenhuma foto por aqui ainda
