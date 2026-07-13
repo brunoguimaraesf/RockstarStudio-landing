@@ -2,7 +2,13 @@
 import gsap from 'gsap'
 import HlsVideo from './HlsVideo'
 import GlowButton from './GlowButton'
-import { INSTAGRAM_URL, MAPS_URL, VIDEO_SRC, WHATSAPP_URL } from '../constants'
+import {
+  BRAND_LOGO_SRC,
+  INSTAGRAM_URL,
+  MAPS_URL,
+  VIDEO_SRC,
+  WHATSAPP_URL,
+} from '../constants'
 
 const SOCIALS = [
   { label: 'Instagram', href: INSTAGRAM_URL },
@@ -97,7 +103,14 @@ export default function Footer() {
             </span>
             Agenda aberta
           </div>
-          <p className="text-xs text-muted">© 2026 Rockstar Studio</p>
+          <p className="flex items-center gap-2 text-xs text-muted">
+            <img
+              src={BRAND_LOGO_SRC}
+              alt=""
+              className="h-6 w-6 rounded-full border border-white/10 object-cover"
+            />
+            © 2026 Rockstar Studio
+          </p>
         </div>
       </div>
     </footer>

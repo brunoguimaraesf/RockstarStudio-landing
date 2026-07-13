@@ -1,5 +1,6 @@
 ﻿import { useEffect, useState } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
+import { BRAND_LOGO_SRC } from '../constants'
 
 const WORDS = ['Estética', 'Atitude', 'Presença']
 const DURATION_MS = 2000
@@ -45,13 +46,20 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       exit={{ opacity: 0, transition: { duration: 0.5 } }}
       className="fixed inset-0 z-[9999] bg-bg"
     >
-      <m.p
+      <m.div
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="absolute left-8 top-8 text-xs uppercase tracking-[0.3em] text-muted"
+        className="absolute left-8 top-8 flex items-center gap-3"
       >
-        Rockstar Studio
-      </m.p>
+        <img
+          src={BRAND_LOGO_SRC}
+          alt=""
+          className="h-10 w-10 rounded-full border border-white/10 object-cover"
+        />
+        <span className="text-xs uppercase tracking-[0.3em] text-muted">
+          Rockstar Studio
+        </span>
+      </m.div>
 
       <div className="absolute inset-0 flex items-center justify-center">
         <AnimatePresence mode="wait">

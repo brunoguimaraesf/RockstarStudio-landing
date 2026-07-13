@@ -83,28 +83,31 @@ body {
 @keyframes float {
   0%,
   100% {
-    transform: translateY(0) rotate(var(--float-rotate, 0deg));
+    transform: translateY(var(--float-distance, 14px))
+      rotate(var(--float-rotate, 0deg));
   }
   50% {
-    transform: translateY(-12px) rotate(var(--float-rotate, 0deg));
+    transform: translateY(calc(var(--float-distance, 14px) * -1))
+      rotate(var(--float-rotate, 0deg));
   }
 }
 
 .animate-float {
-  animation: float 6s ease-in-out infinite;
+  animation: float 4.5s ease-in-out infinite;
 }
 
-@keyframes marquee {
+@keyframes marquee-right {
   from {
-    transform: translateX(0);
-  }
-  to {
     transform: translateX(-50%);
   }
+  to {
+    transform: translateX(0);
+  }
 }
 
-.animate-marquee {
-  animation: marquee 22s linear infinite;
+.animate-marquee-right {
+  animation: marquee-right 14s linear infinite;
+  will-change: transform;
 }
 
 /* Halftone dot overlay for work cards */
@@ -120,8 +123,7 @@ body {
   .animate-scroll-down,
   .animate-role-fade-in,
   .animate-gradient-shift,
-  .animate-float,
-  .animate-marquee {
+  .animate-float {
     animation: none;
   }
 }

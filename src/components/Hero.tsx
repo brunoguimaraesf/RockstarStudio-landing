@@ -3,7 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import HlsVideo from './HlsVideo'
 import GlowButton from './GlowButton'
-import { VIDEO_SRC, WHATSAPP_URL } from '../constants'
+import { BRAND_LOGO_SRC, VIDEO_SRC, WHATSAPP_URL } from '../constants'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -158,9 +158,12 @@ export default function Hero({ active }: HeroProps) {
         <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center px-6 text-center">
           <div className="pointer-events-auto flex flex-col items-center">
             <p className="hero-copy hero-kicker mb-8 text-xs uppercase tracking-[0.3em] text-muted opacity-0">
-              <span className="mr-2 text-kawaii" aria-hidden>
-                ✦
-              </span>
+              <img
+                src={BRAND_LOGO_SRC}
+                alt=""
+                className="mr-3 inline h-7 w-7 rounded-full border border-white/10 object-cover align-middle"
+                aria-hidden="true"
+              />
               Nail Art
             </p>
 
@@ -207,4 +210,3 @@ export default function Hero({ active }: HeroProps) {
     </section>
   )
 }
-

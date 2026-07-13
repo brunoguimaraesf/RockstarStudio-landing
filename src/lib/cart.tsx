@@ -4,35 +4,16 @@ import { CartContext, type CartContextValue, type CartItem } from './cartContext
 const STORAGE_KEY = 'rockstar-cart'
 const MAX_QTY = 20
 
-function loadCart(): CartItem[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) return []
-    const parsed = JSON.parse(raw) as CartItem[]
-    if (!Array.isArray(parsed)) return []
-    return parsed.filter(
-      (item) =>
-        item &&
-        typeof item.id === 'string' &&
-        typeof item.price === 'number' &&
-        typeof item.qty === 'number' &&
-        item.qty > 0,
-    )
-  } catch {
-    return []
-  }
-}
-
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>(loadCart)
+  const [items, setItems] = useState<CartItem[]>([])
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
+      localStorage.removeItem(STORAGE_KEY)
     } catch {
       // armazenamento indisponivel (modo privado) — carrinho segue em memoria
     }
-  }, [items])
+  }, [])
 
   const value = useMemo<CartContextValue>(() => {
     const add: CartContextValue['add'] = (product) =>

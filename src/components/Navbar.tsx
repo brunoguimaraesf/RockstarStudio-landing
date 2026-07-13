@@ -1,6 +1,6 @@
 ﻿import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { WHATSAPP_URL } from '../constants'
+import { BRAND_LOGO_SRC, WHATSAPP_URL } from '../constants'
 
 const LINKS = [
   { label: 'Início', href: '#inicio' },
@@ -31,12 +31,14 @@ export default function Navbar() {
         <a
           href="#inicio"
           onClick={() => setActive('#inicio')}
-          aria-label="RS — Rockstar Studio, início"
+          aria-label="Rockstar Studio, início"
           className="flex h-9 w-9 shrink-0 rounded-full bg-[linear-gradient(90deg,#9D4EDD,#7B2FF7)] p-[2px] transition-transform duration-300 hover:scale-110 hover:bg-[linear-gradient(90deg,#7B2FF7,#9D4EDD)]"
         >
-          <span className="flex h-full w-full items-center justify-center rounded-full bg-bg font-display text-[13px] italic text-text-primary">
-            RS
-          </span>
+          <img
+            src={BRAND_LOGO_SRC}
+            alt=""
+            className="h-full w-full rounded-full bg-bg object-cover"
+          />
         </a>
 
         <span className="mx-1 hidden h-5 w-px shrink-0 bg-stroke md:block" />
@@ -82,4 +84,3 @@ export default function Navbar() {
     </header>
   )
 }
-

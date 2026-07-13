@@ -15,3 +15,5 @@ export const STUDIO_ADDRESS =
   'Centro, Rua Henriqueta Assunção N° 150 C2, portão de grade marrom ao lado da escola Oscar Ribeiro.'
 
 export const VIDEO_SRC = '/videos/rockstar-nails.mp4'
+
+export const BRAND_LOGO_SRC = '/images/brand/rockstar-logo.jpeg'
