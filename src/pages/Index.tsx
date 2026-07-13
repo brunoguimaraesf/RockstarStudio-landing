@@ -4,6 +4,7 @@ import LoadingScreen from '../components/LoadingScreen'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import Works from '../components/Works'
+import ShopPromo from '../components/ShopPromo'
 import ProcessCare from '../components/ProcessCare'
 import AboutArtist from '../components/AboutArtist'
 import ClientTypes from '../components/ClientTypes'
@@ -26,6 +27,7 @@ export default function Index() {
       <main>
         <Hero active={!isLoading} />
         <Works />
+        <ShopPromo />
         <ProcessCare />
         <AboutArtist />
         <ClientTypes />

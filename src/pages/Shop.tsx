@@ -14,6 +14,17 @@ const brl = new Intl.NumberFormat('pt-BR', {
   currency: 'BRL',
 })
 
+function useLockBodyScroll(locked: boolean) {
+  useEffect(() => {
+    if (!locked) return
+    const previous = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previous
+    }
+  }, [locked])
+}
+
 function QtyStepper({
   qty,
   onChange,
@@ -51,7 +62,15 @@ function QtyStepper({
   )
 }
 
-function ProductCard({ product, index }: { product: Product; index: number }) {
+function ProductCard({
+  product,
+  index,
+  onOpen,
+}: {
+  product: Product
+  index: number
+  onOpen: () => void
+}) {
   const { items, add, setQty } = useCart()
   const inCart = items.find((item) => item.id === product.id)
 
@@ -63,7 +82,12 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
       transition={{ duration: 0.5, delay: (index % 3) * 0.05 }}
       className="group flex flex-col overflow-hidden rounded-2xl border border-stroke bg-surface"
     >
-      <div className="relative aspect-square overflow-hidden">
+      <button
+        type="button"
+        onClick={onOpen}
+        aria-label={`Ver detalhes de ${product.name}`}
+        className="relative block aspect-square w-full cursor-zoom-in overflow-hidden"
+      >
         <img
           src={product.src}
           alt={`Press on ${product.name}`}
@@ -77,7 +101,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             Esgotado
           </span>
         )}
-      </div>
+      </button>
 
       <div className="flex flex-1 flex-col gap-2 p-4">
         <h3 className="text-base text-text-primary">{product.name}</h3>
@@ -113,21 +137,158 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
   )
 }
 
+function ProductModal({
+  product,
+  onClose,
+}: {
+  product: Product | null
+  onClose: () => void
+}) {
+  const { items, add, setQty } = useCart()
+  const [qty, setLocalQty] = useState(1)
+  const inCart = product
+    ? items.find((item) => item.id === product.id)
+    : undefined
+
+  useLockBodyScroll(Boolean(product))
+
+  useEffect(() => {
+    if (!product) return
+    setLocalQty(inCart?.qty ?? 1)
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- só ao abrir/trocar de produto
+  }, [product])
+
+  useEffect(() => {
+    if (!product) return
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [product, onClose])
+
+  const confirm = () => {
+    if (!product) return
+    add(product)
+    setQty(product.id, qty)
+    onClose()
+  }
+
+  return (
+    <AnimatePresence>
+      {product && (
+        <>
+          <m.div
+            key="modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 z-[70] bg-black/70 backdrop-blur-sm"
+          />
+          <div
+            className="fixed inset-0 z-[80] grid place-items-center overflow-y-auto p-4"
+            onClick={onClose}
+          >
+            <m.div
+              key="modal"
+              role="dialog"
+              aria-modal="true"
+              aria-label={product.name}
+              initial={{ opacity: 0, scale: 0.94, y: 14 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 10 }}
+              transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+              onClick={(event) => event.stopPropagation()}
+              className="relative grid w-full max-w-3xl overflow-hidden rounded-3xl border border-stroke bg-bg sm:grid-cols-2"
+            >
+              <button
+                type="button"
+                aria-label="Fechar detalhes do produto"
+                onClick={onClose}
+                className="absolute right-4 top-4 z-10 flex h-9 w-9 items-center justify-center rounded-full border border-stroke bg-bg/80 text-muted backdrop-blur-sm transition-colors duration-200 hover:border-violet/40 hover:text-text-primary"
+              >
+                ✕
+              </button>
+
+              <div className="relative aspect-square sm:aspect-auto sm:min-h-[420px]">
+                <img
+                  src={product.src.replace('w=600', 'w=1000')}
+                  alt={`Press on ${product.name}`}
+                  className={`absolute inset-0 h-full w-full object-cover ${
+                    product.available ? '' : 'opacity-40'
+                  }`}
+                />
+                {!product.available && (
+                  <span className="absolute left-4 top-4 rounded-full bg-black/70 px-3 py-1 text-[10px] uppercase tracking-[0.14em] text-white/85 backdrop-blur-sm">
+                    Esgotado
+                  </span>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-4 p-6 sm:p-8">
+                <div>
+                  <span className="text-[10px] uppercase tracking-[0.28em] text-muted">
+                    Press On
+                  </span>
+                  <h2 className="mt-1 text-2xl text-text-primary md:text-3xl">
+                    {product.name}
+                  </h2>
+                </div>
+                <p className="text-xl font-semibold text-text-primary">
+                  {brl.format(product.price)}
+                </p>
+                {product.description && (
+                  <p className="whitespace-pre-line text-sm leading-relaxed text-muted">
+                    {product.description}
+                  </p>
+                )}
+
+                <div className="mt-auto space-y-4 pt-4">
+                  {product.available ? (
+                    <>
+                      <div className="flex items-center justify-between">
+                        <span className="text-sm text-muted">Quantidade</span>
+                        <QtyStepper
+                          qty={qty}
+                          onChange={(value) => setLocalQty(Math.max(1, value))}
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onClick={confirm}
+                        className="w-full rounded-full bg-text-primary px-6 py-3.5 text-sm font-medium text-bg transition-transform duration-200 hover:scale-[1.02]"
+                      >
+                        {inCart
+                          ? 'Atualizar carrinho'
+                          : 'Adicionar ao carrinho'}{' '}
+                        · {brl.format(product.price * qty)}
+                      </button>
+                    </>
+                  ) : (
+                    <p className="rounded-2xl border border-stroke bg-surface px-4 py-3 text-center text-sm text-muted">
+                      Este kit está esgotado no momento.
+                    </p>
+                  )}
+                </div>
+              </div>
+            </m.div>
+          </div>
+        </>
+      )}
+    </AnimatePresence>
+  )
+}
+
 function CartDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { items, total, setQty, remove } = useCart()
 
-  useEffect(() => {
-    if (!open) return
-    const previous = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = previous
-    }
-  }, [open])
+  useLockBodyScroll(open)
 
   const message = useMemo(() => {
     const lines = items.map(
-      (item) => `• ${item.qty}× ${item.name} — ${brl.format(item.price * item.qty)}`,
+      (item) =>
+        `• ${item.qty}× ${item.name} — ${brl.format(item.price * item.qty)}\n  Foto: ${item.src.split('?')[0]}`,
     )
     return [
       'Olá! Quero fazer um pedido de press on:',
@@ -286,6 +447,7 @@ function ShopContent() {
   const products = useProducts()
   const { count } = useCart()
   const [cartOpen, setCartOpen] = useState(false)
+  const [selected, setSelected] = useState<Product | null>(null)
   const isLoading = products === undefined
   const unavailable = products === null
 
@@ -392,7 +554,12 @@ function ShopContent() {
           ) : (
             <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {products.map((product, i) => (
-                <ProductCard key={product.id} product={product} index={i} />
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  index={i}
+                  onOpen={() => setSelected(product)}
+                />
               ))}
             </div>
           )}
@@ -413,6 +580,7 @@ function ShopContent() {
         </div>
       </main>
 
+      <ProductModal product={selected} onClose={() => setSelected(null)} />
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
       <Footer />
     </div>
