@@ -14,6 +14,13 @@ const brl = new Intl.NumberFormat('pt-BR', {
   currency: 'BRL',
 })
 
+// URL da foto atrás do domínio do site (rewrite /foto/* no vercel.json e
+// proxy equivalente no vite.config.ts) em vez do cdn.sanity.io cru
+function maskedPhotoUrl(src: string) {
+  const asset = src.split('/').pop()?.split('?')[0] ?? ''
+  return `${window.location.origin}/foto/${asset}`
+}
+
 function useLockBodyScroll(locked: boolean) {
   useEffect(() => {
     if (!locked) return
@@ -288,7 +295,7 @@ function CartDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const message = useMemo(() => {
     const lines = items.map(
       (item) =>
-        `• ${item.qty}× ${item.name} — ${brl.format(item.price * item.qty)}\n  Foto: ${item.src.split('?')[0]}`,
+        `• ${item.qty}× ${item.name} — ${brl.format(item.price * item.qty)}\n  Foto: ${maskedPhotoUrl(item.src)}`,
     )
     return [
       'Olá! Quero fazer um pedido de press on:',

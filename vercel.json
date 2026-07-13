@@ -1,3 +1,9 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/foto/:asset",
+      "destination": "https://cdn.sanity.io/images/csk3c1gf/production/:asset"
+    },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
