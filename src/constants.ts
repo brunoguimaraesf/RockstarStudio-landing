@@ -4,7 +4,7 @@
 // Número para pedidos da loja, formato internacional sem símbolos (ex.: '5564999998888').
 // O short-link acima não aceita mensagem pré-preenchida; enquanto este campo
 // estiver vazio, o checkout copia o pedido e abre o WHATSAPP_URL.
-export const WHATSAPP_PHONE = ''
+export const WHATSAPP_PHONE = '5564981624311'
 
 export const INSTAGRAM_URL = 'https://www.instagram.com/_rockstarstudio/'
 
