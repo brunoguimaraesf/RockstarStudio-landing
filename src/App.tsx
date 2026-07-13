@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Index from './pages/Index'
 
 const Gallery = lazy(() => import('./pages/Gallery'))
+const Shop = lazy(() => import('./pages/Shop'))
 
 function App() {
   return (
@@ -16,6 +17,14 @@ function App() {
             element={
               <Suspense fallback={<div className="min-h-screen bg-bg" />}>
                 <Gallery />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/loja"
+            element={
+              <Suspense fallback={<div className="min-h-screen bg-bg" />}>
+                <Shop />
               </Suspense>
             }
           />

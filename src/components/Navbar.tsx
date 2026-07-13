@@ -1,4 +1,5 @@
 ﻿import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { WHATSAPP_URL } from '../constants'
 
 const LINKS = [
@@ -55,6 +56,12 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
+          <Link
+            to="/loja"
+            className="rounded-full px-3 py-1.5 text-xs text-muted transition-colors duration-200 hover:bg-stroke/50 hover:text-text-primary sm:px-4 sm:py-2 sm:text-sm"
+          >
+            Loja
+          </Link>
         </nav>
 
         <span className="mx-1 hidden h-5 w-px shrink-0 bg-stroke md:block" />

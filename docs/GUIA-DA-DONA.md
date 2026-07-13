@@ -1,7 +1,8 @@
-# Guia rápido — como colocar fotos novas no site
+# Guia rápido — como atualizar o site
 
-Este é o seu painel para atualizar a galeria do site do Rockstar Studio. Funciona
-direto do celular, e o site atualiza **em segundos** depois que você publica.
+Este é o seu painel para atualizar a galeria e a loja de press on do site do
+Rockstar Studio. Funciona direto do celular, e o site atualiza **em segundos**
+depois que você publica.
 
 **Seu link do painel:** `https://rockstarstudio.sanity.studio`
 *(salve nos favoritos do navegador do celular)*
@@ -36,6 +37,24 @@ direto do celular, e o site atualiza **em segundos** depois que você publica.
 - Em **Categoria**, você pode criar novas (ex.: "Natal", "Francesinha") e renomear
   as existentes — o filtro da galeria se ajusta sozinho.
 - Evite apagar uma categoria que ainda tem fotos: as fotos dela ficariam sem filtro.
+
+## Loja de press on — cadastrar um produto
+
+A página **Loja** do site (`/loja`) mostra os kits press on que você cadastrar
+no painel. A cliente escolhe, monta o carrinho e o pedido chega pronto no seu
+WhatsApp — o pagamento e a entrega você combina na conversa, como sempre.
+
+1. No painel, toque em **Produto (Press On)** e depois no **+** (criar novo).
+2. Preencha:
+   - **Nome** — o nome do kit (ex.: "Kit Gótica Chrome").
+   - **Foto** — uma foto bonita do kit (vale a dica da luz natural).
+   - **Descrição** — o que acompanha: quantas unhas, formato, tamanhos, cola…
+   - **Preço (R$)** — só números, com ponto nos centavos (ex.: `89.90`).
+   - **Disponível** — deixe ligado. Vendeu tudo? **Desligue** e o site mostra
+     "Esgotado" sem você precisar apagar o produto.
+3. Toque em **Publish**. O kit já aparece na loja.
+
+**Dica:** quando fizer o kit de novo, é só religar **Disponível** e publicar.
 
 ## Se algo der errado
 
