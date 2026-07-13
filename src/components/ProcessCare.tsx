@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion'
+﻿import { m } from 'framer-motion'
 import SectionHeader from './SectionHeader'
 import { WHATSAPP_URL } from '../constants'
 
@@ -33,7 +33,7 @@ export default function ProcessCare() {
 
         <div className="grid gap-5 md:grid-cols-3">
           {STEPS.map((step, i) => (
-            <motion.article
+            <m.article
               key={step.title}
               initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -46,11 +46,11 @@ export default function ProcessCare() {
               </span>
               <h3 className="mt-5 text-lg text-text-primary">{step.title}</h3>
               <p className="mt-3 text-sm leading-6 text-muted">{step.text}</p>
-            </motion.article>
+            </m.article>
           ))}
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-70px' }}
@@ -65,7 +65,7 @@ export default function ProcessCare() {
               {care}
             </span>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

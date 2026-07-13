@@ -11,12 +11,12 @@ const token = process.env.SANITY_TOKEN
 const apiVersion = 'v2024-01-01'
 
 const photos = [
-  { title: 'Alternativa I', category: 'Alternativa', file: 'ALTERNATIVA 1.jpg' },
-  { title: 'Alternativa II', category: 'Alternativa', file: 'ALTERNATIVA 2.jpg' },
-  { title: 'Autoral I', category: 'Autoral', file: 'AUTORAL 1.jpg' },
-  { title: 'Autoral II', category: 'Autoral', file: 'AUTORAL 2.jpg' },
-  { title: 'Gótica', category: 'Gótica', file: 'GOTICO 1.jpg' },
-  { title: 'Kawaii', category: 'Kawaii', file: 'KAWAI 2.jpg' },
+  { title: 'Alternativa I', category: 'Alternativa', file: 'ALTERNATIVA 1.webp' },
+  { title: 'Alternativa II', category: 'Alternativa', file: 'ALTERNATIVA 2.webp' },
+  { title: 'Autoral I', category: 'Autoral', file: 'AUTORAL 1.webp' },
+  { title: 'Autoral II', category: 'Autoral', file: 'AUTORAL 2.webp' },
+  { title: 'Gótica', category: 'Gótica', file: 'GOTICO 1.webp' },
+  { title: 'Kawaii', category: 'Kawaii', file: 'KAWAI 2.webp' },
   { title: 'Work 1', category: 'Studio', file: 'WORK1.webp' },
   { title: 'Work 2', category: 'Studio', file: 'WORK2.webp' },
   { title: 'Work 3', category: 'Studio', file: 'WORK3.webp' },

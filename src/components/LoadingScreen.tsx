@@ -1,8 +1,8 @@
 ﻿import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 
 const WORDS = ['Estética', 'Atitude', 'Presença']
-const DURATION_MS = 2700
+const DURATION_MS = 2000
 
 type LoadingScreenProps = {
   onComplete: () => void
@@ -35,36 +35,38 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   useEffect(() => {
     const id = setInterval(
       () => setWordIndex((i) => (i + 1) % WORDS.length),
-      900,
+      650,
     )
     return () => clearInterval(id)
   }, [])
 
   return (
-    <motion.div
+    <m.div
       exit={{ opacity: 0, transition: { duration: 0.5 } }}
       className="fixed inset-0 z-[9999] bg-bg"
     >
-      <motion.p
+      <m.p
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         className="absolute left-8 top-8 text-xs uppercase tracking-[0.3em] text-muted"
       >
         Rockstar Studio
-      </motion.p>
+      </m.p>
 
       <div className="absolute inset-0 flex items-center justify-center">
         <AnimatePresence mode="wait">
-          <motion.span
-            key={wordIndex}
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -20, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="font-display text-4xl italic text-text-primary/80 md:text-6xl lg:text-7xl"
-          >
-            {WORDS[wordIndex]}
-          </motion.span>
+          {count < 100 && (
+            <m.span
+              key={wordIndex}
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="font-display text-4xl italic text-text-primary/80 md:text-6xl lg:text-7xl"
+            >
+              {WORDS[wordIndex]}
+            </m.span>
+          )}
         </AnimatePresence>
       </div>
 
@@ -81,6 +83,6 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           }}
         />
       </div>
-    </motion.div>
+    </m.div>
   )
 }

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import GlowButton from './GlowButton'
 import SectionHeader from './SectionHeader'
@@ -7,28 +7,28 @@ const FEATURED = [
   {
     title: 'Alternativa',
     span: 'md:col-span-7',
-    image: '/images/works/ALTERNATIVA%201.jpg',
+    image: '/images/works/ALTERNATIVA%201.webp',
     gradient: 'linear-gradient(135deg, #110b12 0%, #2b1328 48%, #5c1022 100%)',
     tags: ['Alternativa', 'Chrome'],
   },
   {
     title: 'Kawaii',
     span: 'md:col-span-5',
-    image: '/images/works/KAWAI%202.jpg',
+    image: '/images/works/KAWAI%202.webp',
     gradient: 'linear-gradient(135deg, #151018 0%, #2c1f36 52%, #f2a6c1 130%)',
     tags: ['Kawaii', '3D'],
   },
   {
     title: 'Gótica',
     span: 'md:col-span-5',
-    image: '/images/works/GOTICO%201.jpg',
+    image: '/images/works/GOTICO%201.webp',
     gradient: 'linear-gradient(135deg, #09080b 0%, #1d1430 52%, #7b2ff7 120%)',
     tags: ['Gótica', 'Dark'],
   },
   {
     title: 'Autoral',
     span: 'md:col-span-7',
-    image: '/images/works/AUTORAL%201.jpg',
+    image: '/images/works/AUTORAL%201.webp',
     gradient: 'linear-gradient(135deg, #171015 0%, #301725 48%, #7b1022 100%)',
     tags: ['Autoral', 'Editorial'],
   },
@@ -56,7 +56,7 @@ export default function Works() {
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
           {FEATURED.map((project, i) => (
-            <motion.div
+            <m.div
               key={project.title}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -114,11 +114,11 @@ export default function Works() {
                   </span>
                 </div>
               </Link>
-            </motion.div>
+            </m.div>
           ))}
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
@@ -133,7 +133,7 @@ export default function Works() {
             Ver galeria completa
             <span aria-hidden>↗</span>
           </GlowButton>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

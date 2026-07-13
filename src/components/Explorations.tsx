@@ -1,17 +1,17 @@
 ﻿import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import GlowButton from './GlowButton'
 import { INSTAGRAM_URL } from '../constants'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const PLAYGROUND_IMAGE = '/images/playground/GIOR.jpg'
+const PLAYGROUND_IMAGE = '/images/playground/GIOR.webp'
 
 const ITEMS = [
   {
-    image: '/images/works/ALTERNATIVA%201.jpg',
+    image: '/images/works/ALTERNATIVA%201.webp',
     label: 'Alternativa I',
     gradient: 'linear-gradient(135deg, #241a38, #0f0d14)',
     x: '-38vw',
@@ -20,7 +20,7 @@ const ITEMS = [
     scale: 0.96,
   },
   {
-    image: '/images/works/ALTERNATIVA%202.jpg',
+    image: '/images/works/ALTERNATIVA%202.webp',
     label: 'Alternativa II',
     gradient: 'linear-gradient(135deg, #2e2b38, #121016)',
     x: '-30vw',
@@ -29,7 +29,7 @@ const ITEMS = [
     scale: 0.88,
   },
   {
-    image: '/images/works/KAWAI%202.jpg',
+    image: '/images/works/KAWAI%202.webp',
     label: 'Kawaii',
     gradient: 'linear-gradient(135deg, #1d1430, #14101a)',
     x: '-10vw',
@@ -38,7 +38,7 @@ const ITEMS = [
     scale: 0.76,
   },
   {
-    image: '/images/works/GOTICO%201.jpg',
+    image: '/images/works/GOTICO%201.webp',
     label: 'Gótica',
     gradient: 'linear-gradient(135deg, #2b1f3e, #0f0d14)',
     x: '34vw',
@@ -47,7 +47,7 @@ const ITEMS = [
     scale: 0.92,
   },
   {
-    image: '/images/works/AUTORAL%201.jpg',
+    image: '/images/works/AUTORAL%201.webp',
     label: 'Autoral I',
     gradient: 'linear-gradient(135deg, #201735, #15141a)',
     x: '28vw',
@@ -56,7 +56,7 @@ const ITEMS = [
     scale: 0.9,
   },
   {
-    image: '/images/works/AUTORAL%202.jpg',
+    image: '/images/works/AUTORAL%202.webp',
     label: 'Autoral II',
     gradient: 'linear-gradient(135deg, #281d3a, #121016)',
     x: '8vw',
@@ -65,7 +65,7 @@ const ITEMS = [
     scale: 0.76,
   },
   {
-    image: '/images/works/ALTERNATIVA%201.jpg',
+    image: '/images/works/ALTERNATIVA%201.webp',
     label: 'Detalhe dark',
     gradient: 'linear-gradient(135deg, #1a1422, #09070d)',
     x: '-45vw',
@@ -74,7 +74,7 @@ const ITEMS = [
     scale: 0.7,
   },
   {
-    image: '/images/works/GOTICO%201.jpg',
+    image: '/images/works/GOTICO%201.webp',
     label: 'Metal',
     gradient: 'linear-gradient(135deg, #21172d, #0d0a12)',
     x: '45vw',
@@ -276,14 +276,14 @@ export default function Explorations() {
 
       <AnimatePresence>
         {selected !== null && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-6 backdrop-blur-sm"
             onClick={() => setSelected(null)}
           >
-            <motion.div
+            <m.div
               initial={{ scale: 0.85 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.85 }}
@@ -296,8 +296,8 @@ export default function Explorations() {
                 alt={`Exploração visual ${ITEMS[selected].label}`}
                 className="h-full w-full object-cover"
               />
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </section>

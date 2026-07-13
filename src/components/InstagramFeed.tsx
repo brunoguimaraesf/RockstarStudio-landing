@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion'
+﻿import { m } from 'framer-motion'
 import GlowButton from './GlowButton'
 import { INSTAGRAM_URL } from '../constants'
 import { WORK_IMAGES } from '../media'
@@ -34,7 +34,7 @@ export default function InstagramFeed() {
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {FEED_IMAGES.map((image, i) => (
-            <motion.a
+            <m.a
               key={image.src}
               href={INSTAGRAM_URL}
               target="_blank"
@@ -55,7 +55,7 @@ export default function InstagramFeed() {
               <span className="absolute inset-x-3 bottom-3 rounded-full bg-black/50 px-3 py-1.5 text-center text-[10px] uppercase tracking-[0.14em] text-white/85 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
                 Ver no Instagram
               </span>
-            </motion.a>
+            </m.a>
           ))}
         </div>
 

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import Footer from '../components/Footer'
 import GlowButton from '../components/GlowButton'
 import { WHATSAPP_URL } from '../constants'
@@ -20,7 +20,7 @@ function GalleryGrid({ photos }: { photos: GalleryItem[] }) {
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
       {photos.map((photo, i) => (
-        <motion.figure
+        <m.figure
           key={`${photo.src}-${i}`}
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -40,7 +40,7 @@ function GalleryGrid({ photos }: { photos: GalleryItem[] }) {
               {photo.category}
             </span>
           </figcaption>
-        </motion.figure>
+        </m.figure>
       ))}
     </div>
   )
@@ -157,7 +157,7 @@ export default function Gallery() {
         <div className="pointer-events-none absolute right-[-12%] top-1/3 h-96 w-96 rounded-full bg-violet/10 blur-[140px]" />
 
         <div className="relative mx-auto max-w-[1200px] px-6 md:px-10 lg:px-16">
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
@@ -175,7 +175,7 @@ export default function Gallery() {
             <p className="mt-3 max-w-md text-sm text-muted">
               Uma seleção ampliada dos trabalhos do Rockstar Studio, organizada por categoria.
             </p>
-          </motion.div>
+          </m.div>
 
           {!isLoading && categories.length > 0 && (
             <div className="mt-10 flex flex-wrap gap-2.5">
@@ -218,7 +218,7 @@ export default function Gallery() {
           ) : activeCategory === ALL_CATEGORIES ? (
             <div className="mt-12 space-y-14">
               {groupedItems.map((group) => (
-                <motion.section
+                <m.section
                   key={group.category}
                   initial={{ opacity: 0, y: 24 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -239,7 +239,7 @@ export default function Gallery() {
                     </span>
                   </div>
                   <GalleryGrid photos={group.photos} />
-                </motion.section>
+                </m.section>
               ))}
             </div>
           ) : (

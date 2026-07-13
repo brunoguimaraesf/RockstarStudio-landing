@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion'
+﻿import { m } from 'framer-motion'
 import GlowButton from './GlowButton'
 import { INSTAGRAM_URL, MAPS_URL, STUDIO_ADDRESS, WHATSAPP_URL } from '../constants'
 
@@ -33,7 +33,7 @@ export default function ContactLocation() {
       <div className="pointer-events-none absolute bottom-0 right-[-10%] h-96 w-96 rounded-full bg-purple/12 blur-[120px]" />
 
       <div className="relative mx-auto max-w-[1200px] px-6 md:px-10 lg:px-16">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
@@ -52,10 +52,10 @@ export default function ContactLocation() {
           <p className="mt-3 max-w-xl text-sm leading-6 text-muted">
             Atendimento no centro, com rota direta pelo Maps e todos os canais principais para falar com o Rockstar Studio.
           </p>
-        </motion.div>
+        </m.div>
 
         <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
-          <motion.article
+          <m.article
             initial={{ opacity: 0, scale: 0.96, y: 24 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
             viewport={{ once: true, margin: '-80px' }}
@@ -87,11 +87,11 @@ export default function ContactLocation() {
                 </GlowButton>
               </div>
             </div>
-          </motion.article>
+          </m.article>
 
           <div className="grid gap-4">
             {CONTACTS.map((contact, i) => (
-              <motion.a
+              <m.a
                 key={contact.label}
                 href={contact.href}
                 target="_blank"
@@ -114,7 +114,7 @@ export default function ContactLocation() {
                     {contact.cta} ↗
                   </span>
                 </div>
-              </motion.a>
+              </m.a>
             ))}
           </div>
         </div>

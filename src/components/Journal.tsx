@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion'
+﻿import { m } from 'framer-motion'
 import SectionHeader from './SectionHeader'
 
 const ENTRIES = [
@@ -42,7 +42,7 @@ export default function Journal() {
 
         <div className="flex flex-col gap-4">
           {ENTRIES.map((entry, i) => (
-            <motion.a
+            <m.a
               key={entry.title}
               href="#"
               initial={{ opacity: 0, y: 24 }}
@@ -62,7 +62,7 @@ export default function Journal() {
                 {entry.read}
               </span>
               <span className="pr-2 text-xs text-muted">{entry.date}</span>
-            </motion.a>
+            </m.a>
           ))}
         </div>
       </div>

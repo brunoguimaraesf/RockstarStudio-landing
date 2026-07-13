@@ -30,7 +30,7 @@ export default function Navbar() {
         <a
           href="#inicio"
           onClick={() => setActive('#inicio')}
-          aria-label="Rockstar Studio — início"
+          aria-label="RS — Rockstar Studio, início"
           className="flex h-9 w-9 shrink-0 rounded-full bg-[linear-gradient(90deg,#9D4EDD,#7B2FF7)] p-[2px] transition-transform duration-300 hover:scale-110 hover:bg-[linear-gradient(90deg,#7B2FF7,#9D4EDD)]"
         >
           <span className="flex h-full w-full items-center justify-center rounded-full bg-bg font-display text-[13px] italic text-text-primary">

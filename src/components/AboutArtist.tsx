@@ -1,15 +1,15 @@
-﻿import { motion } from 'framer-motion'
+﻿import { m } from 'framer-motion'
 import GlowButton from './GlowButton'
 import { INSTAGRAM_URL, WHATSAPP_URL } from '../constants'
 
-const ARTIST_IMAGE = '/images/playground/GIOR%202.jpg'
+const ARTIST_IMAGE = '/images/playground/GIOR%202.webp'
 
 export default function AboutArtist() {
   return (
     <section id="sobre" className="relative scroll-mt-24 overflow-hidden bg-bg py-16 md:py-24">
       <div className="pointer-events-none absolute left-[-12%] top-10 h-80 w-80 rounded-full bg-violet/10 blur-[110px]" />
       <div className="mx-auto grid max-w-[1200px] gap-10 px-6 md:grid-cols-[0.9fr_1.1fr] md:items-center md:px-10 lg:px-16">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -23,9 +23,9 @@ export default function AboutArtist() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-transparent" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(157,78,221,0.22),transparent_40%)] mix-blend-screen" />
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -60,7 +60,7 @@ export default function AboutArtist() {
               Ver Instagram
             </GlowButton>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   )

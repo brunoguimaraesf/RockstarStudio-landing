@@ -2,32 +2,32 @@
   {
     title: 'Alternativa I',
     category: 'Alternativa',
-    src: '/images/works/ALTERNATIVA%201.jpg',
+    src: '/images/works/ALTERNATIVA%201.webp',
   },
   {
     title: 'Alternativa II',
     category: 'Alternativa',
-    src: '/images/works/ALTERNATIVA%202.jpg',
+    src: '/images/works/ALTERNATIVA%202.webp',
   },
   {
     title: 'Autoral I',
     category: 'Autoral',
-    src: '/images/works/AUTORAL%201.jpg',
+    src: '/images/works/AUTORAL%201.webp',
   },
   {
     title: 'Autoral II',
     category: 'Autoral',
-    src: '/images/works/AUTORAL%202.jpg',
+    src: '/images/works/AUTORAL%202.webp',
   },
   {
     title: 'Gótica',
     category: 'Gótica',
-    src: '/images/works/GOTICO%201.jpg',
+    src: '/images/works/GOTICO%201.webp',
   },
   {
     title: 'Kawaii',
     category: 'Kawaii',
-    src: '/images/works/KAWAI%202.jpg',
+    src: '/images/works/KAWAI%202.webp',
   },
   {
     title: 'Work 1',

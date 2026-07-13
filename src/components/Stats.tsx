@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion'
+﻿import { m } from 'framer-motion'
 
 const STATS = [
   { value: '[02]+', label: 'Anos de experiência' },
@@ -11,7 +11,7 @@ export default function Stats() {
     <section className="bg-bg py-16 md:py-24">
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-10 px-6 md:grid-cols-3 md:px-10 lg:px-16">
         {STATS.map((stat, i) => (
-          <motion.div
+          <m.div
             key={stat.label}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -23,7 +23,7 @@ export default function Stats() {
               {stat.value}
             </p>
             <p className="mt-2 text-sm text-muted">{stat.label}</p>
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </section>

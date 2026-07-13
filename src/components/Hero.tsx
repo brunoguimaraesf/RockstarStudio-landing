@@ -97,15 +97,19 @@ export default function Hero({ active }: HeroProps) {
       ScrollTrigger.update()
     }
 
+    // Reset imediato para o topo do hero: se o navegador restaurou um scroll
+    // antigo, a timeline de scrub nasceria adiantada e o texto piscaria na
+    // tela até o auto-scroll começar
+    document.documentElement.style.scrollBehavior = 'auto'
+    ScrollTrigger.refresh()
+    if (rootRef.current) setScrollY(rootRef.current.offsetTop)
+
     const autoIntroDelay = window.setTimeout(() => {
       raf = requestAnimationFrame(() => {
         const root = rootRef.current
         if (!root) return
 
         const heroTop = root.offsetTop
-
-        document.documentElement.style.scrollBehavior = 'auto'
-        ScrollTrigger.refresh()
         setScrollY(heroTop)
 
         const scrollState = { y: heroTop }
@@ -122,7 +126,7 @@ export default function Hero({ active }: HeroProps) {
           },
         })
       })
-    }, 900)
+    }, 1200)
 
     return () => {
       window.clearTimeout(autoIntroDelay)

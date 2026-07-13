@@ -1,4 +1,4 @@
-﻿import { motion } from 'framer-motion'
+﻿import { m } from 'framer-motion'
 import SectionHeader from './SectionHeader'
 import { WHATSAPP_URL } from '../constants'
 import { CLIENT_TYPE_IMAGES } from '../media'
@@ -37,7 +37,7 @@ export default function ClientTypes() {
           ))}
         </div>
 
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.92, y: 28 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
@@ -59,7 +59,7 @@ export default function ClientTypes() {
 
             </h3>
           </div>
-        </motion.div>
+        </m.div>
 
         <div className="order-3 grid gap-5 sm:grid-cols-2 lg:grid-cols-1 lg:justify-items-start">
           {rightCards.map((item, i) => (
@@ -85,7 +85,7 @@ type ClientTypeCardProps = {
 
 function ClientTypeCard({ item, index, compact }: ClientTypeCardProps) {
   return (
-    <motion.article
+    <m.article
       initial={{ opacity: 0, scale: 0.9, y: 26 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true, margin: '-70px' }}
@@ -107,7 +107,7 @@ function ClientTypeCard({ item, index, compact }: ClientTypeCardProps) {
         </span>
         <p className="text-xs leading-5 text-text-primary md:text-sm">{CLIENT_TYPES[index]}</p>
       </div>
-    </motion.article>
+    </m.article>
   )
 }
 
