@@ -8,12 +8,8 @@ export const WHATSAPP_PHONE = '5564981624311'
 
 export const INSTAGRAM_URL = 'https://www.instagram.com/_rockstarstudio/'
 
-export const MAPS_URL =
-  'https://www.google.com/maps?q=-17.798274993896484,-50.933448791503906&z=17&hl=pt-BR'
-
-export const STUDIO_ADDRESS =
-  'Centro, Rua Henriqueta Assunção N° 150 C2, portão de grade marrom ao lado da escola Oscar Ribeiro.'
-
 export const VIDEO_SRC = '/videos/rockstar-nails.mp4'
+
+export const MOBILE_VIDEO_SRC = '/videos/rockstar-nails-mobile.mp4'
 
 export const BRAND_LOGO_SRC = '/images/brand/rockstar-logo.jpeg'

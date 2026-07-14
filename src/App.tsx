@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useCallback, useState } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Index from './pages/Index'
@@ -7,11 +7,24 @@ const Gallery = lazy(() => import('./pages/Gallery'))
 const Shop = lazy(() => import('./pages/Shop'))
 
 function App() {
+  const [hasPlayedIntro, setHasPlayedIntro] = useState(
+    () => window.location.pathname !== '/',
+  )
+  const handleIntroComplete = useCallback(() => setHasPlayedIntro(true), [])
+
   return (
     <LazyMotion features={domAnimation} strict>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route
+            path="/"
+            element={
+              <Index
+                showIntro={!hasPlayedIntro}
+                onIntroComplete={handleIntroComplete}
+              />
+            }
+          />
           <Route
             path="/galeria"
             element={

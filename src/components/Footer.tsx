@@ -5,7 +5,6 @@ import GlowButton from './GlowButton'
 import {
   BRAND_LOGO_SRC,
   INSTAGRAM_URL,
-  MAPS_URL,
   VIDEO_SRC,
   WHATSAPP_URL,
 } from '../constants'
@@ -13,7 +12,6 @@ import {
 const SOCIALS = [
   { label: 'Instagram', href: INSTAGRAM_URL },
   { label: 'WhatsApp', href: WHATSAPP_URL },
-  { label: 'Como chegar', href: MAPS_URL },
 ]
 
 export default function Footer() {

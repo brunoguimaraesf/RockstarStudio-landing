@@ -1,6 +1,5 @@
 ﻿import { m } from 'framer-motion'
-import GlowButton from './GlowButton'
-import { INSTAGRAM_URL, MAPS_URL, STUDIO_ADDRESS, WHATSAPP_URL } from '../constants'
+import { INSTAGRAM_URL, WHATSAPP_URL } from '../constants'
 
 const CONTACTS = [
   {
@@ -14,12 +13,6 @@ const CONTACTS = [
     detail: 'Portfólio, bastidores, agenda e referências do studio.',
     href: INSTAGRAM_URL,
     cta: '@_rockstarstudio',
-  },
-  {
-    label: 'Google Maps',
-    detail: 'Rota direta até o endereço do atendimento.',
-    href: MAPS_URL,
-    cta: 'Abrir rota',
   },
 ]
 
@@ -43,53 +36,18 @@ export default function ContactLocation() {
           <div className="mb-4 flex items-center gap-3">
             <span className="accent-gradient h-px w-8" />
             <span className="text-xs uppercase tracking-[0.3em] text-muted">
-              Localização e contato
+              Contato
             </span>
           </div>
           <h2 className="text-4xl tracking-tight text-text-primary md:text-5xl">
-            Chegue no <span className="font-display italic text-violet">studio</span>
+            Fale com o <span className="font-display italic text-violet">studio</span>
           </h2>
           <p className="mt-3 max-w-xl text-sm leading-6 text-muted">
-            Atendimento no centro, com rota direta pelo Maps e todos os canais principais para falar com o Rockstar Studio.
+            Agendamentos, dúvidas, referências e bastidores pelos canais principais do Rockstar Studio.
           </p>
         </m.div>
 
-        <div className="grid gap-5 lg:grid-cols-[1.1fr_0.9fr] lg:items-stretch">
-          <m.article
-            initial={{ opacity: 0, scale: 0.96, y: 24 }}
-            whileInView={{ opacity: 1, scale: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.75 }}
-            className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-surface p-6 shadow-2xl shadow-black/30 md:p-8"
-          >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(157,78,221,0.18),transparent_38%)]" />
-            <div className="absolute inset-x-0 bottom-0 h-px accent-gradient" />
-            <div className="relative z-10 flex h-full flex-col justify-between gap-10">
-              <div>
-                <p className="text-xs uppercase tracking-[0.28em] text-muted">
-                  Endereço
-                </p>
-                <h3 className="mt-4 max-w-2xl text-2xl leading-tight text-text-primary md:text-4xl">
-                  Centro, Rua Henriqueta Assunção N° 150 C2
-                </h3>
-                <p className="mt-4 max-w-xl text-sm leading-6 text-muted">
-                  Portão de grade marrom ao lado da escola Oscar Ribeiro.
-                </p>
-              </div>
-
-              <div className="grid gap-4 sm:grid-cols-[1fr_auto] sm:items-end">
-                <p className="rounded-2xl border border-white/10 bg-bg/60 p-4 text-sm leading-6 text-text-primary">
-                  {STUDIO_ADDRESS}
-                </p>
-                <GlowButton href={MAPS_URL} external variant="cta" className="sm:justify-self-end">
-                  Ver rota
-                  <span aria-hidden>↗</span>
-                </GlowButton>
-              </div>
-            </div>
-          </m.article>
-
-          <div className="grid gap-4">
+        <div className="grid gap-4 md:grid-cols-2">
             {CONTACTS.map((contact, i) => (
               <m.a
                 key={contact.label}
@@ -117,7 +75,6 @@ export default function ContactLocation() {
               </m.a>
             ))}
           </div>
-        </div>
       </div>
     </section>
   )

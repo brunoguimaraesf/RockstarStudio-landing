@@ -120,8 +120,8 @@ export default function Gallery() {
 
   return (
     <div className="min-h-screen bg-bg">
-      <header className="fixed left-0 right-0 top-0 z-50 flex justify-center px-3 pt-4 md:pt-6">
-        <div className="inline-flex max-w-full items-center gap-1 rounded-full border border-white/10 bg-surface/90 px-2 py-2 shadow-[0_14px_50px_rgba(0,0,0,0.45)] backdrop-blur-md">
+      <header className="fixed left-0 right-0 top-0 z-50 flex justify-center px-2 pt-[calc(env(safe-area-inset-top)+0.75rem)] md:px-3 md:pt-6">
+        <div className="inline-flex max-w-[calc(100vw-1rem)] items-center gap-1 rounded-full border border-white/10 bg-surface/90 px-2 py-2 shadow-[0_14px_50px_rgba(0,0,0,0.45)] backdrop-blur-md">
           <Link
             to="/"
             aria-label="Voltar para a pagina principal"
@@ -152,11 +152,11 @@ export default function Gallery() {
         </div>
       </header>
 
-      <main className="relative overflow-hidden pb-16 pt-32 md:pb-24 md:pt-40">
+      <main className="relative overflow-hidden pb-16 pt-40 md:pb-24 md:pt-40">
         <div className="pointer-events-none absolute -top-24 left-[-10%] h-96 w-96 rounded-full bg-purple/10 blur-[120px]" />
         <div className="pointer-events-none absolute right-[-12%] top-1/3 h-96 w-96 rounded-full bg-violet/10 blur-[140px]" />
 
-        <div className="relative mx-auto max-w-[1200px] px-6 md:px-10 lg:px-16">
+        <div className="relative mx-auto max-w-[1200px] px-4 md:px-10 lg:px-16">
           <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -168,7 +168,7 @@ export default function Gallery() {
                 Portfolio completo
               </span>
             </div>
-            <h1 className="text-4xl tracking-tight text-text-primary md:text-6xl">
+            <h1 className="text-3xl leading-tight tracking-tight text-text-primary sm:text-4xl md:text-6xl">
               Galeria do{' '}
               <span className="font-display italic text-violet">studio</span>
             </h1>

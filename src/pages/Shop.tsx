@@ -110,15 +110,15 @@ function ProductCard({
         )}
       </button>
 
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <h3 className="text-base text-text-primary">{product.name}</h3>
+      <div className="flex flex-1 flex-col gap-2 p-3 sm:p-4">
+        <h3 className="text-sm text-text-primary sm:text-base">{product.name}</h3>
         {product.description && (
           <p className="line-clamp-3 text-xs leading-relaxed text-muted">
             {product.description}
           </p>
         )}
-        <div className="mt-auto flex items-center justify-between gap-3 pt-3">
-          <span className="font-semibold text-text-primary">
+        <div className="mt-auto flex flex-col items-start gap-3 pt-3 sm:flex-row sm:items-center sm:justify-between">
+          <span className="text-lg font-semibold leading-none text-text-primary sm:text-base">
             {brl.format(product.price)}
           </span>
           {!product.available ? (
@@ -133,7 +133,7 @@ function ProductCard({
             <button
               type="button"
               onClick={() => add(product)}
-              className="rounded-full bg-text-primary px-4 py-1.5 text-xs font-medium text-bg transition-transform duration-200 hover:scale-105"
+              className="w-full rounded-full bg-text-primary px-3 py-2 text-xs font-medium text-bg transition-transform duration-200 hover:scale-105 sm:w-auto sm:px-4 sm:py-1.5"
             >
               Adicionar
             </button>
@@ -464,8 +464,8 @@ function ShopContent() {
 
   return (
     <div className="min-h-screen bg-bg">
-      <header className="fixed left-0 right-0 top-0 z-50 flex justify-center px-3 pt-4 md:pt-6">
-        <div className="inline-flex max-w-full items-center gap-1 rounded-full border border-white/10 bg-surface/90 px-2 py-2 shadow-[0_14px_50px_rgba(0,0,0,0.45)] backdrop-blur-md">
+      <header className="fixed left-0 right-0 top-0 z-50 flex justify-center px-2 pt-[calc(env(safe-area-inset-top)+0.75rem)] md:px-3 md:pt-6">
+        <div className="inline-flex max-w-[calc(100vw-1rem)] items-center gap-1 rounded-full border border-white/10 bg-surface/90 px-2 py-2 shadow-[0_14px_50px_rgba(0,0,0,0.45)] backdrop-blur-md">
           <Link
             to="/"
             aria-label="Voltar para a pagina principal"
@@ -499,11 +499,11 @@ function ShopContent() {
         </div>
       </header>
 
-      <main className="relative overflow-hidden pb-16 pt-32 md:pb-24 md:pt-40">
+      <main className="relative overflow-hidden pb-16 pt-40 md:pb-24 md:pt-40">
         <div className="pointer-events-none absolute -top-24 left-[-10%] h-96 w-96 rounded-full bg-purple/10 blur-[120px]" />
         <div className="pointer-events-none absolute right-[-12%] top-1/3 h-96 w-96 rounded-full bg-kawaii/10 blur-[140px]" />
 
-        <div className="relative mx-auto max-w-[1200px] px-6 md:px-10 lg:px-16">
+        <div className="relative mx-auto max-w-[1200px] px-4 md:px-10 lg:px-16">
           <m.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -515,7 +515,7 @@ function ShopContent() {
                 Loja · Press On
               </span>
             </div>
-            <h1 className="text-4xl tracking-tight text-text-primary md:text-6xl">
+            <h1 className="text-3xl leading-tight tracking-tight text-text-primary sm:text-4xl md:text-6xl">
               Press ons do{' '}
               <span className="font-display italic text-violet">studio</span>
             </h1>
@@ -526,7 +526,7 @@ function ShopContent() {
           </m.div>
 
           {isLoading ? (
-            <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
               {Array.from({ length: 8 }).map((_, i) => (
                 <div
                   key={i}
@@ -559,7 +559,7 @@ function ShopContent() {
               </GlowButton>
             </div>
           ) : (
-            <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
               {products.map((product, i) => (
                 <ProductCard
                   key={product.id}

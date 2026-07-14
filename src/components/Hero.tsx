@@ -3,7 +3,12 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import HlsVideo from './HlsVideo'
 import GlowButton from './GlowButton'
-import { BRAND_LOGO_SRC, VIDEO_SRC, WHATSAPP_URL } from '../constants'
+import {
+  BRAND_LOGO_SRC,
+  MOBILE_VIDEO_SRC,
+  VIDEO_SRC,
+  WHATSAPP_URL,
+} from '../constants'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -29,54 +34,81 @@ export default function Hero({ active }: HeroProps) {
     if (!active) return
 
     const ctx = gsap.context(() => {
-      gsap.set('.hero-copy', {
-        opacity: 0,
-        y: '52vh',
-        filter: 'blur(10px)',
+      const mm = gsap.matchMedia()
+
+      mm.add('(min-width: 768px)', () => {
+        gsap.set('.hero-copy', {
+          opacity: 0,
+          y: '52vh',
+          filter: 'blur(10px)',
+        })
+        gsap.set('.hero-overlay', { opacity: 0 })
+        gsap.set('.hero-scroll-cue', { opacity: 1 })
+
+        const reveal = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: 'top top',
+            end: '58% top',
+            scrub: 0.45,
+            invalidateOnRefresh: true,
+          },
+        })
+
+        reveal
+          .to('.hero-scroll-cue', { opacity: 0, duration: 0.08 }, 0)
+          .to('.hero-overlay', { opacity: 1, duration: 0.18 }, 0)
+          .to(
+            '.hero-kicker',
+            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.34 },
+            0,
+          )
+          .to(
+            '.hero-title',
+            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.42 },
+            0.025,
+          )
+          .to(
+            '.hero-role',
+            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.36 },
+            0.12,
+          )
+          .to(
+            '.hero-description',
+            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.36 },
+            0.19,
+          )
+          .to(
+            '.hero-actions',
+            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.34 },
+            0.27,
+          )
       })
-      gsap.set('.hero-overlay', { opacity: 0 })
-      gsap.set('.hero-scroll-cue', { opacity: 1 })
 
-      const reveal = gsap.timeline({
-        defaults: { ease: 'none' },
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: 'top top',
-          end: '58% top',
-          scrub: 0.45,
-          invalidateOnRefresh: true,
-        },
+      mm.add('(max-width: 767px)', () => {
+        gsap.set('.hero-copy', {
+          opacity: 0,
+          y: 24,
+          filter: 'none',
+        })
+        gsap.set('.hero-overlay', { opacity: 1 })
+        gsap.set('.hero-scroll-cue', { opacity: 0 })
+
+        const reveal = gsap.timeline({
+          delay: 0.12,
+          defaults: { ease: 'power2.out' },
+        })
+
+        reveal
+          .to('.hero-kicker', { opacity: 1, y: 0, duration: 0.28 }, 0)
+          .to('.hero-title', { opacity: 1, y: 0, duration: 0.38 }, 0.06)
+          .to('.hero-role', { opacity: 1, y: 0, duration: 0.3 }, 0.16)
+          .to('.hero-description', { opacity: 1, y: 0, duration: 0.3 }, 0.22)
+          .to('.hero-actions', { opacity: 1, y: 0, duration: 0.3 }, 0.28)
       })
 
-      reveal
-        .to('.hero-scroll-cue', { opacity: 0, duration: 0.08 }, 0)
-        .to('.hero-overlay', { opacity: 1, duration: 0.18 }, 0)
-        .to(
-          '.hero-kicker',
-          { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.34 },
-          0,
-        )
-        .to(
-          '.hero-title',
-          { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.42 },
-          0.025,
-        )
-        .to(
-          '.hero-role',
-          { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.36 },
-          0.12,
-        )
-        .to(
-          '.hero-description',
-          { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.36 },
-          0.19,
-        )
-        .to(
-          '.hero-actions',
-          { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.34 },
-          0.27,
-        )
-
+      return () => mm.revert()
     }, rootRef)
 
     ScrollTrigger.refresh()
@@ -89,12 +121,23 @@ export default function Hero({ active }: HeroProps) {
     let autoScrollTween: gsap.core.Tween | undefined
     let raf = 0
     const previousScrollBehavior = document.documentElement.style.scrollBehavior
+    const isDesktop = window.matchMedia('(min-width: 768px)').matches
 
     const setScrollY = (y: number) => {
       window.scrollTo(0, y)
       document.documentElement.scrollTop = y
       document.body.scrollTop = y
       ScrollTrigger.update()
+    }
+
+    if (!isDesktop) {
+      document.documentElement.style.scrollBehavior = 'auto'
+      if (rootRef.current) setScrollY(rootRef.current.offsetTop)
+      ScrollTrigger.refresh()
+
+      return () => {
+        document.documentElement.style.scrollBehavior = previousScrollBehavior
+      }
     }
 
     // Reset imediato para o topo do hero: se o navegador restaurou um scroll
@@ -140,12 +183,13 @@ export default function Hero({ active }: HeroProps) {
     <section
       id="inicio"
       ref={rootRef}
-      className="relative min-h-[285vh] bg-bg"
+      className="relative min-h-[100svh] bg-bg md:min-h-[285vh]"
     >
-      <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
+      <div className="sticky top-0 flex h-[100svh] items-center justify-center overflow-hidden md:h-screen">
         <div className="absolute inset-0 z-0">
           <HlsVideo
             src={VIDEO_SRC}
+            mobileSrc={MOBILE_VIDEO_SRC}
             className="absolute left-1/2 top-1/2 min-h-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover"
           />
           <div className="hero-overlay absolute inset-0 bg-black/45 opacity-0" />
@@ -164,7 +208,7 @@ export default function Hero({ active }: HeroProps) {
                 className="mr-3 inline h-7 w-7 rounded-full border border-white/10 object-cover align-middle"
                 aria-hidden="true"
               />
-              Nail Art
+              Nail Art · Press On
             </p>
 
             <h1 className="hero-copy hero-title mb-6 font-display text-6xl italic leading-[0.9] tracking-tight text-text-primary opacity-0 md:text-8xl lg:text-9xl">
@@ -172,7 +216,7 @@ export default function Hero({ active }: HeroProps) {
             </h1>
 
             <p className="hero-copy hero-role mb-4 text-base text-muted opacity-0 md:text-lg">
-              Unhas{' '}
+              Unhas e press ons{' '}
               <span
                 key={roleIndex}
                 className="animate-role-fade-in inline-block font-display italic text-violet drop-shadow-[0_0_14px_rgba(157,78,221,0.45)]"
@@ -183,16 +227,33 @@ export default function Hero({ active }: HeroProps) {
             </p>
 
             <p className="hero-copy hero-description mb-12 max-w-xl text-sm text-muted opacity-0 md:text-base">
-              Para quem sempre sentiu demais para caber no básico, cada detalhe nas unhas vira uma forma de existir em voz alta.
+              Nail arts autorais e kits press on artesanais para quem quer
+              transformar cada detalhe das unhas em presença.
             </p>
 
-            <div className="hero-copy hero-actions inline-flex flex-col gap-4 opacity-0 sm:flex-row">
-              <GlowButton href={WHATSAPP_URL} external variant="cta">
+            <div className="hero-copy hero-actions flex w-full max-w-[19rem] flex-col items-stretch gap-3 opacity-0 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
+              <GlowButton
+                href={WHATSAPP_URL}
+                external
+                variant="whatsapp"
+                className="w-full sm:w-auto"
+              >
                 Agendar no WhatsApp
                 <span aria-hidden>↗</span>
               </GlowButton>
-              <GlowButton href="#trabalhos" variant="outline">
+              <GlowButton
+                href="#trabalhos"
+                variant="outline"
+                className="w-full sm:w-auto"
+              >
                 Ver trabalhos
+              </GlowButton>
+              <GlowButton
+                href="/loja"
+                variant="outline"
+                className="w-full sm:w-auto"
+              >
+                Ver press ons
               </GlowButton>
             </div>
           </div>

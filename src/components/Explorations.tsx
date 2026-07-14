@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { AnimatePresence, m } from 'framer-motion'
@@ -84,6 +84,17 @@ const ITEMS = [
   },
 ]
 
+const MOBILE_ITEMS = [
+  { x: '-30vw', y: '-24vh', rotate: -8, scale: 0.82 },
+  { x: '-28vw', y: '16vh', rotate: 6, scale: 0.72 },
+  { x: '-6vw', y: '-32vh', rotate: -4, scale: 0.62 },
+  { x: '28vw', y: '-22vh', rotate: 8, scale: 0.78 },
+  { x: '28vw', y: '16vh', rotate: -7, scale: 0.72 },
+  { x: '6vw', y: '30vh', rotate: 5, scale: 0.62 },
+  { x: '-34vw', y: '-2vh', rotate: -12, scale: 0.58 },
+  { x: '34vw', y: '0vh', rotate: 12, scale: 0.58 },
+]
+
 export default function Explorations() {
   const sectionRef = useRef<HTMLElement>(null)
   const pinRef = useRef<HTMLDivElement>(null)
@@ -93,123 +104,187 @@ export default function Explorations() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: 'bottom bottom',
-        pin: pinRef.current,
-        pinSpacing: false,
-      })
-
       const cards = gsap.utils.toArray<HTMLElement>('.playground-card')
+      const mm = gsap.matchMedia()
 
-      gsap.set(cards, {
-        x: 0,
-        y: 0,
-        rotate: (index) => [-8, 5, -4, 8, -6, 4, -10, 10][index] ?? 0,
-        scale: 0.58,
-        opacity: 0.82,
-        transformOrigin: '50% 50%',
-      })
-
-      const spread = gsap.timeline({
-        defaults: { ease: 'none' },
-        scrollTrigger: {
+      mm.add('(min-width: 768px)', () => {
+        ScrollTrigger.create({
           trigger: sectionRef.current,
           start: 'top top',
-          end: '42% top',
-          scrub: 0.35,
+          end: 'bottom bottom',
+          pin: pinRef.current,
+          pinSpacing: false,
+          anticipatePin: 1,
+          fastScrollEnd: true,
           invalidateOnRefresh: true,
-        },
-      })
+        })
 
-      cards.forEach((card, index) => {
-        const item = ITEMS[index]
-        spread.to(
-          card,
-          {
-            x: item.x,
-            y: item.y,
-            rotate: item.rotate,
-            scale: item.scale,
-            opacity: 1,
-            duration: 0.32,
+        gsap.set(cards, {
+          x: 0,
+          y: 0,
+          rotate: (index) => [-8, 5, -4, 8, -6, 4, -10, 10][index] ?? 0,
+          scale: 0.58,
+          opacity: 0.82,
+          transformOrigin: '50% 50%',
+        })
+
+        const spread = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: '38% top',
+            scrub: 0.12,
+            fastScrollEnd: true,
+            invalidateOnRefresh: true,
           },
-          0,
-        )
+        })
+
+        cards.forEach((card, index) => {
+          const item = ITEMS[index]
+          spread.to(
+            card,
+            {
+              x: item.x,
+              y: item.y,
+              rotate: item.rotate,
+              scale: item.scale,
+              opacity: 1,
+              duration: 0.28,
+            },
+            0,
+          )
+        })
+
+        spread
+          .to('.playground-copy', { scale: 0.96, opacity: 0.94, duration: 0.2 }, 0)
+          .to('.playground-haze', { opacity: 0.64, scale: 1.12, duration: 0.28 }, 0)
       })
 
-      spread
-        .to('.playground-copy', { scale: 0.94, opacity: 0.92, duration: 0.24 }, 0)
-        .to('.playground-haze', { opacity: 0.7, scale: 1.18, duration: 0.34 }, 0)
+      mm.add('(max-width: 767px)', () => {
+        let autoScrollTween: gsap.core.Tween | undefined
+        let autoScrollDelay = 0
+        const previousScrollBehavior = document.documentElement.style.scrollBehavior
+        const reducedMotion = window.matchMedia(
+          '(prefers-reduced-motion: reduce)',
+        ).matches
 
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom bottom',
+          pin: pinRef.current,
+          pinSpacing: false,
+          anticipatePin: 1,
+          fastScrollEnd: true,
+          invalidateOnRefresh: true,
+        })
+
+        gsap.set(cards, {
+          x: 0,
+          y: 0,
+          rotate: (index) => [-8, 5, -4, 8, -6, 4, -10, 10][index] ?? 0,
+          scale: 0.58,
+          opacity: 0.82,
+          transformOrigin: '50% 50%',
+        })
+        gsap.set('.playground-copy', { scale: 1, opacity: 1 })
+        gsap.set('.playground-haze', { opacity: 0.65, scale: 1.05 })
+
+        const spread = gsap.timeline({
+          defaults: { ease: 'none' },
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: '46% top',
+            scrub: 0.16,
+            fastScrollEnd: true,
+            invalidateOnRefresh: true,
+          },
+        })
+
+        cards.forEach((card, index) => {
+          const item = MOBILE_ITEMS[index]
+          spread.to(
+            card,
+            {
+              x: item?.x ?? 0,
+              y: item?.y ?? 0,
+              rotate: item?.rotate ?? 0,
+              scale: item?.scale ?? 0.68,
+              opacity: 1,
+              duration: 0.28,
+            },
+            0,
+          )
+        })
+
+        const setScrollY = (y: number) => {
+          window.scrollTo(0, y)
+          document.documentElement.scrollTop = y
+          document.body.scrollTop = y
+          ScrollTrigger.update()
+        }
+
+        const restoreScrollBehavior = () => {
+          document.documentElement.style.scrollBehavior = previousScrollBehavior
+        }
+
+        const runAutoSpread = () => {
+          const section = sectionRef.current
+          if (!section || autoSpreadRef.current || reducedMotion) return
+
+          const sectionTop = section.offsetTop
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight
+          const targetY = Math.min(sectionTop + section.offsetHeight * 0.46, maxScroll)
+
+          if (window.scrollY > targetY - 24) return
+
+          autoSpreadRef.current = true
+          autoScrollDelay = window.setTimeout(() => {
+            document.documentElement.style.scrollBehavior = 'auto'
+            ScrollTrigger.refresh()
+
+            const scrollState = { y: window.scrollY }
+
+            autoScrollTween = gsap.to(scrollState, {
+              y: targetY,
+              duration: 1.2,
+              ease: 'power2.inOut',
+              overwrite: 'auto',
+              onUpdate: () => setScrollY(scrollState.y),
+              onComplete: restoreScrollBehavior,
+            })
+          }, 140)
+        }
+
+        const autoTrigger = ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: 'top 18%',
+          end: 'bottom top',
+          once: true,
+          onEnter: runAutoSpread,
+        })
+
+        return () => {
+          window.clearTimeout(autoScrollDelay)
+          autoScrollTween?.kill()
+          autoTrigger.kill()
+          restoreScrollBehavior()
+        }
+      })
+
+      return () => mm.revert()
     }, sectionRef)
+
     return () => ctx.revert()
   }, [])
 
-  useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
-
-    let autoScrollTween: gsap.core.Tween | undefined
-    let delay = 0
-    const previousScrollBehavior = document.documentElement.style.scrollBehavior
-
-    const setScrollY = (y: number) => {
-      window.scrollTo(0, y)
-      document.documentElement.scrollTop = y
-      document.body.scrollTop = y
-      ScrollTrigger.update()
-    }
-
-    const runAutoSpread = () => {
-      if (autoSpreadRef.current) return
-      autoSpreadRef.current = true
-
-      delay = window.setTimeout(() => {
-        document.documentElement.style.scrollBehavior = 'auto'
-        ScrollTrigger.refresh()
-
-        const sectionTop = section.offsetTop
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight
-        const targetY = Math.min(sectionTop + section.offsetHeight * 0.42, maxScroll)
-        const scrollState = { y: window.scrollY }
-
-        autoScrollTween = gsap.to(scrollState, {
-          y: targetY,
-          duration: 1.65,
-          ease: 'power2.inOut',
-          overwrite: 'auto',
-          onUpdate: () => setScrollY(scrollState.y),
-          onComplete: () => {
-            document.documentElement.style.scrollBehavior = previousScrollBehavior
-          },
-        })
-      }, 180)
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          runAutoSpread()
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.18 },
-    )
-
-    observer.observe(section)
-
-    return () => {
-      observer.disconnect()
-      window.clearTimeout(delay)
-      autoScrollTween?.kill()
-      document.documentElement.style.scrollBehavior = previousScrollBehavior
-    }
-  }, [])
-
   return (
-    <section ref={sectionRef} className="relative min-h-[390vh] bg-bg">
+    <section
+      ref={sectionRef}
+      className="relative min-h-[210vh] bg-bg md:min-h-[320vh]"
+    >
       <div
         ref={pinRef}
         className="relative z-10 flex h-screen items-center justify-center overflow-hidden"
@@ -236,13 +311,14 @@ export default function Explorations() {
               type="button"
               onClick={() => setSelected(index)}
               aria-label={`Ampliar exploração ${item.label}`}
-              className="playground-card pointer-events-auto absolute aspect-[4/5] w-[38vw] max-w-[230px] min-w-[128px] overflow-hidden rounded-3xl border border-stroke bg-surface shadow-2xl shadow-black/35 transition-[filter] duration-300 hover:z-30 hover:brightness-110 sm:w-[28vw] md:w-[18vw]"
+              className="playground-card pointer-events-auto absolute aspect-[4/5] w-[38vw] max-w-[230px] min-w-[118px] transform-gpu overflow-hidden rounded-3xl border border-stroke bg-surface shadow-2xl shadow-black/35 transition-[filter] duration-300 will-change-transform hover:z-30 hover:brightness-110 sm:w-[28vw] md:w-[18vw]"
               style={{ background: item.gradient }}
             >
               <img
                 src={item.image}
                 alt={`Exploração visual ${item.label}`}
                 loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover opacity-90 transition duration-500 hover:opacity-100"
               />
               <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
@@ -251,7 +327,6 @@ export default function Explorations() {
         </div>
 
         <div className="playground-copy relative z-30 flex flex-col items-center px-6 text-center">
-          {/* Luz roxa atrás do conteúdo pinado */}
           <div className="playground-haze pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple/15 blur-[110px]" />
           <div className="mb-4 flex items-center gap-3">
             <span className="accent-gradient h-px w-8" />
@@ -303,4 +378,3 @@ export default function Explorations() {
     </section>
   )
 }
-

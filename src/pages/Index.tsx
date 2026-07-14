@@ -14,9 +14,17 @@ import Stats from '../components/Stats'
 import ContactLocation from '../components/ContactLocation'
 import Footer from '../components/Footer'
 
-export default function Index() {
-  const [isLoading, setIsLoading] = useState(true)
-  const handleComplete = useCallback(() => setIsLoading(false), [])
+type IndexProps = {
+  showIntro: boolean
+  onIntroComplete: () => void
+}
+
+export default function Index({ showIntro, onIntroComplete }: IndexProps) {
+  const [isLoading, setIsLoading] = useState(showIntro)
+  const handleComplete = useCallback(() => {
+    setIsLoading(false)
+    onIntroComplete()
+  }, [onIntroComplete])
 
   return (
     <>
@@ -40,4 +48,3 @@ export default function Index() {
     </>
   )
 }
-
