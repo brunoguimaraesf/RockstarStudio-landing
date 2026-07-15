@@ -19,6 +19,14 @@ export const product = defineType({
       validation: (rule) => rule.required().error('Envie a foto do kit press on.'),
     }),
     defineField({
+      name: 'category',
+      title: 'Categoria',
+      description:
+        'Opcional. Usada para filtrar os kits na loja. Categorias proprias da loja, separadas das categorias da galeria.',
+      type: 'reference',
+      to: [{ type: 'categoryPresson' }],
+    }),
+    defineField({
       name: 'description',
       title: 'Descricao',
       description:
