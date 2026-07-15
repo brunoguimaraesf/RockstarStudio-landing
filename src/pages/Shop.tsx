@@ -21,6 +21,111 @@ function maskedPhotoUrl(src: string) {
   return `${window.location.origin}/foto/${asset}`
 }
 
+const ALL_CATEGORIES = 'Todas'
+
+// Busca sem diferenciar acento/maiúscula ("gotica" encontra "Gótica")
+function normalizeText(value: string) {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+}
+
+const CUSTOM_ORDER_MESSAGE =
+  'Olá! Quero encomendar um press on personalizado. Já vou mandar a foto ou referência do modelo que eu quero.'
+
+const customOrderUrl = WHATSAPP_PHONE
+  ? `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(CUSTOM_ORDER_MESSAGE)}`
+  : WHATSAPP_URL
+
+function CustomOrderSection() {
+  const steps = [
+    {
+      title: 'Mande sua referência',
+      text: 'Envie uma foto, print ou ideia do modelo que você quer.',
+    },
+    {
+      title: 'Criação sob medida',
+      text: 'A artista cria o design exclusivo no tamanho exato das suas unhas.',
+    },
+    {
+      title: 'Combine o valor',
+      text: 'Preço e prazo são combinados direto na conversa, sem compromisso.',
+    },
+  ]
+
+  return (
+    <m.section
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 0.65 }}
+      aria-label="Press on personalizada"
+      className="relative mt-16 overflow-hidden rounded-3xl border border-stroke bg-surface px-6 py-10 sm:px-10"
+    >
+      <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-violet/15 blur-[100px]" />
+      <div className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-purple/10 blur-[110px]" />
+
+      <div className="relative">
+        <div className="mb-4 flex items-center gap-3">
+          <span className="accent-gradient h-px w-8" />
+          <span className="text-xs uppercase tracking-[0.3em] text-muted">
+            Personalizadas
+          </span>
+        </div>
+        <h2 className="text-2xl leading-tight tracking-tight text-text-primary sm:text-3xl md:text-4xl">
+          Não achou o modelo?{' '}
+          <span className="font-display italic text-violet">
+            A gente cria pra você
+          </span>
+        </h2>
+
+        <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-violet/40 bg-violet/10 px-4 py-2 text-sm font-medium text-text-primary shadow-[0_0_24px_rgba(157,78,221,0.25)]">
+          <span aria-hidden className="text-base">🚚</span>
+          Enviamos para todo o Brasil
+        </div>
+
+        <div className="mt-8 grid gap-8 md:grid-cols-[minmax(0,340px)_1fr] md:items-stretch">
+          <img
+            src="/images/loja/press-on-personalizada.png"
+            alt="São unhas postiças artesanais, feitas com soft-gel, no tamanho exato das suas unhas."
+            loading="lazy"
+            className="aspect-[4/5] w-full rounded-2xl border border-stroke bg-black object-cover object-top md:aspect-auto md:h-full"
+          />
+
+          <div>
+            <ol className="mt-8 grid gap-4 sm:grid-cols-3">
+              {steps.map((step, i) => (
+                <li
+                  key={step.title}
+                  className="rounded-2xl border border-stroke bg-bg/60 p-4"
+                >
+                  <span className="font-display text-2xl italic text-violet">
+                    {i + 1}.
+                  </span>
+                  <p className="mt-2 text-sm font-medium text-text-primary">
+                    {step.title}
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted">
+                    {step.text}
+                  </p>
+                </li>
+              ))}
+            </ol>
+
+            <div className="mt-8">
+              <GlowButton href={customOrderUrl} external variant="whatsapp">
+                Pedir personalizada no WhatsApp
+                <span aria-hidden>↗</span>
+              </GlowButton>
+            </div>
+          </div>
+        </div>
+      </div>
+    </m.section>
+  )
+}
+
 function useLockBodyScroll(locked: boolean) {
   useEffect(() => {
     if (!locked) return
@@ -455,8 +560,41 @@ function ShopContent() {
   const { count } = useCart()
   const [cartOpen, setCartOpen] = useState(false)
   const [selected, setSelected] = useState<Product | null>(null)
+  const [search, setSearch] = useState('')
+  const [activeCategory, setActiveCategory] = useState(ALL_CATEGORIES)
   const isLoading = products === undefined
   const unavailable = products === null
+
+  const categories = useMemo(() => {
+    const unique: string[] = []
+    for (const product of products ?? []) {
+      if (product.category && !unique.includes(product.category)) {
+        unique.push(product.category)
+      }
+    }
+    return unique
+  }, [products])
+
+  const filtered = useMemo(() => {
+    const term = normalizeText(search.trim())
+    return (products ?? []).filter((product) => {
+      if (
+        activeCategory !== ALL_CATEGORIES &&
+        product.category !== activeCategory
+      ) {
+        return false
+      }
+      if (!term) return true
+      return normalizeText(
+        `${product.name} ${product.description} ${product.category}`,
+      ).includes(term)
+    })
+  }, [products, activeCategory, search])
+
+  const clearFilters = () => {
+    setSearch('')
+    setActiveCategory(ALL_CATEGORIES)
+  }
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -559,16 +697,67 @@ function ShopContent() {
               </GlowButton>
             </div>
           ) : (
-            <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
-              {products.map((product, i) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  index={i}
-                  onOpen={() => setSelected(product)}
+            <>
+              <div className="mt-10 flex flex-col gap-4">
+                <input
+                  type="search"
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  placeholder="Buscar por nome, estilo ou detalhe..."
+                  aria-label="Buscar press on"
+                  className="w-full max-w-md rounded-full border border-stroke bg-surface px-5 py-3 text-sm text-text-primary placeholder:text-muted focus:border-violet/50 focus:outline-none"
                 />
-              ))}
-            </div>
+                {categories.length > 0 && (
+                  <div className="flex flex-wrap gap-2.5">
+                    {[ALL_CATEGORIES, ...categories].map((category) => (
+                      <button
+                        key={category}
+                        type="button"
+                        aria-pressed={activeCategory === category}
+                        onClick={() => setActiveCategory(category)}
+                        className={`rounded-full border px-4 py-2 text-[11px] uppercase tracking-[0.14em] transition-colors duration-200 ${
+                          activeCategory === category
+                            ? 'border-transparent bg-text-primary text-bg'
+                            : 'border-stroke bg-surface text-muted hover:border-violet/40 hover:text-text-primary'
+                        }`}
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {filtered.length === 0 ? (
+                <div className="mt-10 flex flex-col items-center gap-3 rounded-3xl border border-stroke bg-surface px-6 py-16 text-center">
+                  <p className="font-display text-2xl italic text-text-primary">
+                    Nenhum press on encontrado
+                  </p>
+                  <p className="max-w-sm text-sm text-muted">
+                    Tente outra busca ou categoria — ou peça um modelo
+                    personalizado logo abaixo.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={clearFilters}
+                    className="mt-2 rounded-full bg-text-primary px-5 py-2 text-xs font-medium text-bg transition-transform duration-200 hover:scale-105"
+                  >
+                    Limpar filtros
+                  </button>
+                </div>
+              ) : (
+                <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+                  {filtered.map((product, i) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      index={i}
+                      onOpen={() => setSelected(product)}
+                    />
+                  ))}
+                </div>
+              )}
+            </>
           )}
 
           {count > 0 && (
@@ -584,6 +773,8 @@ function ShopContent() {
               </button>
             </div>
           )}
+
+          <CustomOrderSection />
         </div>
       </main>
 

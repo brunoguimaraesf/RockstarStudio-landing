@@ -9,6 +9,7 @@ export type Product = {
   id: string
   name: string
   description: string
+  category: string
   price: number
   src: string
   available: boolean
@@ -30,6 +31,7 @@ type ProductResult = {
   id: string | null
   name: string | null
   description: string | null
+  category: string | null
   price: number | null
   url: string | null
   available: boolean | null
@@ -46,6 +48,7 @@ const PRODUCTS_QUERY = `*[_type == "product" && defined(image.asset)] | order(_c
   "id": _id,
   name,
   description,
+  "category": category->title,
   price,
   "url": image.asset->url,
   available
@@ -94,6 +97,7 @@ export async function fetchProducts(): Promise<Product[] | null> {
       id: item.id || '',
       name: item.name || '',
       description: item.description || '',
+      category: item.category || '',
       price: item.price || 0,
       src: optimizedImageUrl(item.url || '', 600),
       available: item.available ?? true,
