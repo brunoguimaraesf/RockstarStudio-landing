@@ -153,8 +153,8 @@ export default function Gallery() {
       </header>
 
       <main className="relative overflow-hidden pb-16 pt-40 md:pb-24 md:pt-40">
-        <div className="pointer-events-none absolute -top-24 left-[-10%] h-96 w-96 rounded-full bg-purple/10 blur-[120px]" />
-        <div className="pointer-events-none absolute right-[-12%] top-1/3 h-96 w-96 rounded-full bg-violet/10 blur-[140px]" />
+        <div className="pointer-events-none absolute -top-24 left-[-10%] h-96 w-96 rounded-full bg-purple/10 blur-[76px]" />
+        <div className="pointer-events-none absolute right-[-12%] top-1/3 h-96 w-96 rounded-full bg-violet/10 blur-[88px]" />
 
         <div className="relative mx-auto max-w-[1200px] px-4 md:px-10 lg:px-16">
           <m.div

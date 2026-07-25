@@ -156,9 +156,11 @@ export default function Explorations() {
           )
         })
 
+        // Sem animar scale: a copy e o haze (blur-[72px]) sao re-rasterizados a
+        // cada frame se a escala muda — animamos so opacity, composto na GPU
         spread
-          .to('.playground-copy', { scale: 0.96, opacity: 0.94, duration: 0.2 }, 0)
-          .to('.playground-haze', { opacity: 0.64, scale: 1.12, duration: 0.28 }, 0)
+          .to('.playground-copy', { opacity: 0.94, duration: 0.2 }, 0)
+          .to('.playground-haze', { opacity: 0.64, duration: 0.28 }, 0)
       })
 
       mm.add('(max-width: 767px)', () => {
@@ -327,7 +329,7 @@ export default function Explorations() {
         </div>
 
         <div className="playground-copy relative z-30 flex flex-col items-center px-6 text-center">
-          <div className="playground-haze pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple/15 blur-[110px]" />
+          <div className="playground-haze transform-gpu pointer-events-none absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple/15 blur-[72px]" />
           <div className="mb-4 flex items-center gap-3">
             <span className="accent-gradient h-px w-8" />
             <span className="text-xs uppercase tracking-[0.3em] text-muted">

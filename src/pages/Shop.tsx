@@ -63,8 +63,8 @@ function CustomOrderSection() {
       aria-label="Press on personalizada"
       className="relative mt-16 overflow-hidden rounded-3xl border border-stroke bg-surface px-6 py-10 sm:px-10"
     >
-      <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-violet/15 blur-[100px]" />
-      <div className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-purple/10 blur-[110px]" />
+      <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-violet/15 blur-[64px]" />
+      <div className="pointer-events-none absolute -bottom-24 -left-16 h-64 w-64 rounded-full bg-purple/10 blur-[70px]" />
 
       <div className="relative">
         <div className="mb-4 flex items-center gap-3">
@@ -312,7 +312,7 @@ function ProductModal({
               exit={{ opacity: 0, scale: 0.96, y: 10 }}
               transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               onClick={(event) => event.stopPropagation()}
-              className="relative grid w-full max-w-3xl overflow-hidden rounded-3xl border border-stroke bg-bg sm:grid-cols-2"
+              className="relative flex max-h-[calc(100dvh-2rem)] w-full max-w-3xl flex-col overflow-hidden rounded-3xl border border-stroke bg-bg sm:grid sm:grid-cols-2"
             >
               <button
                 type="button"
@@ -323,7 +323,7 @@ function ProductModal({
                 ✕
               </button>
 
-              <div className="relative aspect-square sm:aspect-auto sm:min-h-[420px]">
+              <div className="relative h-[38vh] shrink-0 sm:h-auto sm:min-h-[420px]">
                 <img
                   src={product.src.replace('w=600', 'w=1000')}
                   alt={`Press on ${product.name}`}
@@ -338,7 +338,7 @@ function ProductModal({
                 )}
               </div>
 
-              <div className="flex flex-col gap-4 p-6 sm:p-8">
+              <div className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto p-6 sm:p-8">
                 <div>
                   <span className="text-[10px] uppercase tracking-[0.28em] text-muted">
                     Press On
@@ -638,8 +638,8 @@ function ShopContent() {
       </header>
 
       <main className="relative overflow-hidden pb-16 pt-40 md:pb-24 md:pt-40">
-        <div className="pointer-events-none absolute -top-24 left-[-10%] h-96 w-96 rounded-full bg-purple/10 blur-[120px]" />
-        <div className="pointer-events-none absolute right-[-12%] top-1/3 h-96 w-96 rounded-full bg-kawaii/10 blur-[140px]" />
+        <div className="pointer-events-none absolute -top-24 left-[-10%] h-96 w-96 rounded-full bg-purple/10 blur-[76px]" />
+        <div className="pointer-events-none absolute right-[-12%] top-1/3 h-96 w-96 rounded-full bg-kawaii/10 blur-[88px]" />
 
         <div className="relative mx-auto max-w-[1200px] px-4 md:px-10 lg:px-16">
           <m.div

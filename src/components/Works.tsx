@@ -44,7 +44,7 @@ export default function Works() {
       className="relative scroll-mt-24 overflow-hidden bg-bg py-12 md:py-16"
     >
       {/* Luz roxa ambiente */}
-      <div className="pointer-events-none absolute -top-24 right-[-10%] h-96 w-96 rounded-full bg-purple/10 blur-[120px]" />
+      <div className="pointer-events-none absolute -top-24 right-[-10%] h-96 w-96 rounded-full bg-purple/10 blur-[76px]" />
       <div className="relative mx-auto max-w-[1200px] px-6 md:px-10 lg:px-16">
         <SectionHeader
           eyebrow="Trabalhos selecionados"

@@ -37,16 +37,18 @@ export default function Hero({ active }: HeroProps) {
       const mm = gsap.matchMedia()
 
       mm.add('(min-width: 768px)', () => {
+        // Sem filter: blur() no scrub — animar blur a cada frame do scroll
+        // repinta a tela inteira e trava; opacity + y sao compostos na GPU
         gsap.set('.hero-copy', {
           opacity: 0,
           y: '52vh',
-          filter: 'blur(10px)',
+          willChange: 'transform, opacity',
         })
         gsap.set('.hero-overlay', { opacity: 0 })
         gsap.set('.hero-scroll-cue', { opacity: 1 })
 
         const reveal = gsap.timeline({
-          defaults: { ease: 'none' },
+          defaults: { ease: 'none', force3D: true },
           scrollTrigger: {
             trigger: rootRef.current,
             start: 'top top',
@@ -59,31 +61,11 @@ export default function Hero({ active }: HeroProps) {
         reveal
           .to('.hero-scroll-cue', { opacity: 0, duration: 0.08 }, 0)
           .to('.hero-overlay', { opacity: 1, duration: 0.18 }, 0)
-          .to(
-            '.hero-kicker',
-            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.34 },
-            0,
-          )
-          .to(
-            '.hero-title',
-            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.42 },
-            0.025,
-          )
-          .to(
-            '.hero-role',
-            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.36 },
-            0.12,
-          )
-          .to(
-            '.hero-description',
-            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.36 },
-            0.19,
-          )
-          .to(
-            '.hero-actions',
-            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.34 },
-            0.27,
-          )
+          .to('.hero-kicker', { opacity: 1, y: 0, duration: 0.34 }, 0)
+          .to('.hero-title', { opacity: 1, y: 0, duration: 0.42 }, 0.025)
+          .to('.hero-role', { opacity: 1, y: 0, duration: 0.36 }, 0.12)
+          .to('.hero-description', { opacity: 1, y: 0, duration: 0.36 }, 0.19)
+          .to('.hero-actions', { opacity: 1, y: 0, duration: 0.34 }, 0.27)
       })
 
       mm.add('(max-width: 767px)', () => {
@@ -194,8 +176,10 @@ export default function Hero({ active }: HeroProps) {
           />
           <div className="hero-overlay absolute inset-0 bg-black/45 opacity-0" />
           <div className="hero-overlay absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.5),transparent_75%)] opacity-0" />
-          {/* Luz roxa do estúdio */}
-          <div className="hero-overlay absolute inset-0 bg-[radial-gradient(circle_at_80%_15%,rgba(123,47,247,0.3),transparent_45%),radial-gradient(circle_at_12%_80%,rgba(157,78,221,0.22),transparent_40%)] opacity-0 mix-blend-screen" />
+          {/* Luz roxa do estúdio — sem mix-blend-screen: animar blend no scrub
+              recompoe a camada a cada frame e trava em telas 16:9. Sobre o
+              video escuro, o roxo com blend normal fica praticamente igual. */}
+          <div className="hero-overlay absolute inset-0 bg-[radial-gradient(circle_at_80%_15%,rgba(123,47,247,0.42),transparent_45%),radial-gradient(circle_at_12%_80%,rgba(157,78,221,0.32),transparent_40%)] opacity-0" />
           <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-bg to-transparent" />
         </div>
 

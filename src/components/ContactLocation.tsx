@@ -22,8 +22,8 @@ export default function ContactLocation() {
       id="contato"
       className="relative scroll-mt-28 overflow-hidden bg-bg py-20 md:py-28"
     >
-      <div className="pointer-events-none absolute left-[-12%] top-24 h-96 w-96 rounded-full bg-blood/10 blur-[120px]" />
-      <div className="pointer-events-none absolute bottom-0 right-[-10%] h-96 w-96 rounded-full bg-purple/12 blur-[120px]" />
+      <div className="pointer-events-none absolute left-[-12%] top-24 h-96 w-96 rounded-full bg-blood/10 blur-[76px]" />
+      <div className="pointer-events-none absolute bottom-0 right-[-10%] h-96 w-96 rounded-full bg-purple/12 blur-[76px]" />
 
       <div className="relative mx-auto max-w-[1200px] px-6 md:px-10 lg:px-16">
         <m.div

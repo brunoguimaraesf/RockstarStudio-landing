@@ -7,7 +7,7 @@ const ARTIST_IMAGE = '/images/playground/GIOR%202.webp'
 export default function AboutArtist() {
   return (
     <section id="sobre" className="relative scroll-mt-24 overflow-hidden bg-bg py-16 md:py-24">
-      <div className="pointer-events-none absolute left-[-12%] top-10 h-80 w-80 rounded-full bg-violet/10 blur-[110px]" />
+      <div className="pointer-events-none absolute left-[-12%] top-10 h-80 w-80 rounded-full bg-violet/10 blur-[70px]" />
       <div className="mx-auto grid max-w-[1200px] gap-10 px-6 md:grid-cols-[0.9fr_1.1fr] md:items-center md:px-10 lg:px-16">
         <m.div
           initial={{ opacity: 0, y: 28 }}

@@ -71,8 +71,8 @@ export default function ShopPromo() {
           className="animate-gradient-shift rounded-[26px] p-[1.5px]"
         >
           <div className="relative overflow-hidden rounded-3xl bg-bg">
-            <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-purple/15 blur-[100px]" />
-            <div className="pointer-events-none absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-kawaii/10 blur-[110px]" />
+            <div className="pointer-events-none absolute -left-20 -top-20 h-72 w-72 rounded-full bg-purple/15 blur-[64px]" />
+            <div className="pointer-events-none absolute -bottom-24 -right-16 h-72 w-72 rounded-full bg-kawaii/10 blur-[70px]" />
 
             <div className="relative grid items-center gap-10 p-8 md:grid-cols-2 md:p-12 lg:p-14">
               <div>

@@ -8,7 +8,7 @@ const FEED_IMAGES = WORK_IMAGES.slice(-6)
 export default function InstagramFeed() {
   return (
     <section id="instagram" className="relative scroll-mt-24 overflow-hidden bg-bg py-16 md:py-24">
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet/10 blur-[120px]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-violet/10 blur-[76px]" />
       <div className="mx-auto max-w-[1200px] px-6 md:px-10 lg:px-16">
         <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
