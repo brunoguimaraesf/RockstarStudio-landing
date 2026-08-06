@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { AnimatePresence, m } from 'framer-motion'
 import Footer from '../components/Footer'
 import GlowButton from '../components/GlowButton'
+import Seo from '../components/Seo'
 import { WHATSAPP_PHONE, WHATSAPP_URL } from '../constants'
 import { CartProvider } from '../lib/cart'
 import { useCart } from '../lib/cartContext'
@@ -788,6 +789,11 @@ function ShopContent() {
 export default function Shop() {
   return (
     <CartProvider>
+      <Seo
+        path="/loja"
+        title="Loja Press On · Rockstar Studio"
+        description="Kits de press on artesanais do Rockstar Studio — unhas postiças feitas à mão em Rio Verde - GO. Monte o pedido e finalize pelo WhatsApp."
+      />
       <ShopContent />
     </CartProvider>
   )

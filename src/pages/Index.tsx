@@ -1,5 +1,6 @@
 ﻿import { useCallback, useState } from 'react'
 import { AnimatePresence } from 'framer-motion'
+import Seo from '../components/Seo'
 import LoadingScreen from '../components/LoadingScreen'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
@@ -28,6 +29,11 @@ export default function Index({ showIntro, onIntroComplete }: IndexProps) {
 
   return (
     <>
+      <Seo
+        path="/"
+        title="Rockstar Studio · Nail Art autoral em Rio Verde - GO"
+        description="Rockstar Studio — nail art autoral em Rio Verde - GO. Unhas com estética, atitude e presença: do clássico ao gótico, kawaii e alternativo. Agende seu horário."
+      />
       <AnimatePresence>
         {isLoading && <LoadingScreen onComplete={handleComplete} />}
       </AnimatePresence>
