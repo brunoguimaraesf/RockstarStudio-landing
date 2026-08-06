@@ -791,8 +791,8 @@ export default function Shop() {
     <CartProvider>
       <Seo
         path="/loja"
-        title="Loja Press On · Rockstar Studio"
-        description="Kits de press on artesanais do Rockstar Studio — unhas postiças feitas à mão em Rio Verde - GO. Monte o pedido e finalize pelo WhatsApp."
+        title="Press On Artesanal em Rio Verde - GO · Rockstar Studio"
+        description="Press on e unhas postiças artesanais do Rockstar Studio — nail art feita à mão em Rio Verde - GO. Monte o pedido e finalize pelo WhatsApp."
       />
       <ShopContent />
     </CartProvider>

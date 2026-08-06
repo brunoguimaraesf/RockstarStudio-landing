@@ -31,8 +31,8 @@ export default function Index({ showIntro, onIntroComplete }: IndexProps) {
     <>
       <Seo
         path="/"
-        title="Rockstar Studio · Nail Art autoral em Rio Verde - GO"
-        description="Rockstar Studio — nail art autoral em Rio Verde - GO. Unhas com estética, atitude e presença: do clássico ao gótico, kawaii e alternativo. Agende seu horário."
+        title="Nail Art e Nail Designer em Rio Verde - GO | Rockstar Studio"
+        description="Rockstar Studio — nail art autoral, nail design, unhas em gel e press on artesanais em Rio Verde - GO. Do clássico ao gótico, kawaii e alternativo. Agende pelo WhatsApp."
       />
       <AnimatePresence>
         {isLoading && <LoadingScreen onComplete={handleComplete} />}

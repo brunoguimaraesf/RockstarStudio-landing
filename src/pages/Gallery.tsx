@@ -123,8 +123,8 @@ export default function Gallery() {
     <div className="min-h-screen bg-bg">
       <Seo
         path="/galeria"
-        title="Galeria · Rockstar Studio"
-        description="Portfólio de nail arts autorais do Rockstar Studio em Rio Verde - GO: gótico, kawaii, chrome, stiletto e trabalhos alternativos."
+        title="Galeria de Nail Art · Rockstar Studio · Rio Verde - GO"
+        description="Portfólio de nail art e nail design do Rockstar Studio em Rio Verde - GO: gótico, kawaii, chrome, stiletto, unhas em gel e trabalhos autorais."
       />
       <header className="fixed left-0 right-0 top-0 z-50 flex justify-center px-2 pt-[calc(env(safe-area-inset-top)+0.75rem)] md:px-3 md:pt-6">
         <div className="inline-flex max-w-[calc(100vw-1rem)] items-center gap-1 rounded-full border border-white/10 bg-surface/90 px-2 py-2 shadow-[0_14px_50px_rgba(0,0,0,0.45)] backdrop-blur-md">
