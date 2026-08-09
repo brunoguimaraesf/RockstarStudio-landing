@@ -122,7 +122,7 @@ export default function Gallery() {
   return (
     <div className="min-h-screen bg-bg">
       <Seo
-        path="/galeria"
+        path="/galeria/"
         title="Galeria de Nail Art · Rockstar Studio · Rio Verde - GO"
         description="Portfólio de nail art e nail design do Rockstar Studio em Rio Verde - GO: gótico, kawaii, chrome, stiletto, unhas em gel e trabalhos autorais."
       />

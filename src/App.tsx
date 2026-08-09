@@ -26,7 +26,7 @@ function App() {
             }
           />
           <Route
-            path="/galeria"
+            path="/galeria/"
             element={
               <Suspense fallback={<div className="min-h-screen bg-bg" />}>
                 <Gallery />
@@ -34,7 +34,7 @@ function App() {
             }
           />
           <Route
-            path="/loja"
+            path="/loja/"
             element={
               <Suspense fallback={<div className="min-h-screen bg-bg" />}>
                 <Shop />

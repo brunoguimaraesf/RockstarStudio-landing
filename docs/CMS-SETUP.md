@@ -93,21 +93,21 @@ O script sobe as fotos de `public/images/works/`, cria as categorias e marca tod
 
 ## 7. Onde aparece o destaque
 
-Fotos com **"Destaque"** ligado formam a seção/pill **"Destaques"**, exibida primeiro na página `/galeria`. A home usa cards editoriais fixos e não muda via CMS.
+Fotos com **"Destaque"** ligado formam a seção/pill **"Destaques"**, exibida primeiro na página `/galeria/`. A home usa cards editoriais fixos e não muda via CMS.
 
 ## 8. Deploy do site
 
-Como o site tem a rota `/galeria` (React Router), o host precisa de **SPA fallback** (qualquer rota devolve `index.html`):
+Como o site tem a rota `/galeria/` (React Router), o host precisa de **SPA fallback** (qualquer rota devolve `index.html`):
 
 - **Vercel/Netlify:** normalmente automático para Vite; se a rota der 404, adicione a regra de rewrite/redirect para `/index.html`.
 - **Hospedagem manual (nginx/apache):** configure fallback para `index.html`.
 
 ## 9. Resiliência
 
-Se o Sanity estiver fora do ar, sem CORS liberado, sem project ID ou o visitante estiver sem internet no momento do fetch, o site **não quebra**: `/galeria` mostra as fotos hardcoded de `src/media.ts` (sem seção Destaques). Nenhum erro visível para o visitante.
+Se o Sanity estiver fora do ar, sem CORS liberado, sem project ID ou o visitante estiver sem internet no momento do fetch, o site **não quebra**: `/galeria/` mostra as fotos hardcoded de `src/media.ts` (sem seção Destaques). Nenhum erro visível para o visitante.
 
 ## Fluxo semanal (resumo)
 
 1. Dona publica foto no Studio pelo celular (ver `GUIA-DA-DONA.md`).
-2. Foto aparece em `/galeria` em segundos — **sem rebuild, sem deploy**.
+2. Foto aparece em `/galeria/` em segundos — **sem rebuild, sem deploy**.
 3. Fotos hardcoded continuam existindo apenas como rede de segurança.

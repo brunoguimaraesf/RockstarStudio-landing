@@ -35,7 +35,7 @@ const FEATURED = [
 ]
 
 const galleryCategoryHref = (category: string) =>
-  `/galeria?categoria=${encodeURIComponent(category)}`
+  `/galeria/?categoria=${encodeURIComponent(category)}`
 
 export default function Works() {
   return (
@@ -51,7 +51,7 @@ export default function Works() {
           title="Trabalhos em"
           italic="destaque"
           subtext="Uma seleção de nail arts do studio do conceito ao acabamento."
-          cta={{ label: 'Ver galeria', href: '/galeria' }}
+          cta={{ label: 'Ver galeria', href: '/galeria/' }}
         />
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-12 md:gap-6">
@@ -129,7 +129,7 @@ export default function Works() {
             Curtiu algum estilo? A galeria completa separa os trabalhos por
             categoria para encontrar sua referência com mais facilidade.
           </p>
-          <GlowButton href="/galeria" variant="solid">
+          <GlowButton href="/galeria/" variant="solid">
             Ver galeria completa
             <span aria-hidden>↗</span>
           </GlowButton>

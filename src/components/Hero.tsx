@@ -233,7 +233,7 @@ export default function Hero({ active }: HeroProps) {
                 Ver trabalhos
               </GlowButton>
               <GlowButton
-                href="/loja"
+                href="/loja/"
                 variant="outline"
                 className="w-full sm:w-auto"
               >

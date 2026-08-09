@@ -40,7 +40,7 @@ depois que você publica.
 
 ## Loja de press on — cadastrar um produto
 
-A página **Loja** do site (`/loja`) mostra os kits press on que você cadastrar
+A página **Loja** do site (`/loja/`) mostra os kits press on que você cadastrar
 no painel. A cliente escolhe, monta o carrinho e o pedido chega pronto no seu
 WhatsApp — o pagamento e a entrega você combina na conversa, como sempre.
 

@@ -59,7 +59,7 @@ export default function Navbar() {
             </a>
           ))}
           <Link
-            to="/loja"
+            to="/loja/"
             className="rounded-full px-3 py-1.5 text-xs text-muted transition-colors duration-200 hover:bg-stroke/50 hover:text-text-primary sm:px-4 sm:py-2 sm:text-sm"
           >
             Loja

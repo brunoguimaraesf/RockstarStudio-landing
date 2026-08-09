@@ -92,7 +92,7 @@ export default function ShopPromo() {
                   finalize direto no WhatsApp.
                 </p>
                 <div className="mt-8">
-                  <GlowButton href="/loja" variant="solid">
+                  <GlowButton href="/loja/" variant="solid">
                     Conhecer os press ons
                     <span aria-hidden>→</span>
                   </GlowButton>

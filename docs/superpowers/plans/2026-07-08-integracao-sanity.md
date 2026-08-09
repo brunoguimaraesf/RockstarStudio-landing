@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** A dona do studio adiciona fotos e marca destaques pelo painel do Sanity; a página `/galeria` atual (versão estática do usuário) passa a consumir o CMS com fallback para `src/media.ts`. A home **não muda**.
+**Goal:** A dona do studio adiciona fotos e marca destaques pelo painel do Sanity; a página `/galeria/` atual (versão estática do usuário) passa a consumir o CMS com fallback para `src/media.ts`. A home **não muda**.
 
 **Architecture:** A camada de dados completa já existe no commit `8a3ef6d` (cliente GROQ via fetch, hook `usePhotos`, Sanity Studio em `studio/`, script de migração) e foi removida no `ed67d88`. Este plano **restaura esses arquivos do git** e pluga o hook na `Gallery.tsx` atual, preservando 100% do visual dela (grupos por categoria, pills, `?categoria=` na URL). Contrato do hook: `undefined` = carregando (skeleton), `null`/lista vazia = fallback estático, lista com fotos = CMS. Fotos `featured` formam a seção/pill **"Destaques"**, exibida primeiro.
 
@@ -142,7 +142,7 @@ const FEATURED_CATEGORY = 'Destaques'
 
 e esconder as pills durante o loading: `{!isLoading && categories.length > 0 && (`.
 
-- [ ] **Step 8: Verificar** — Run: `npm run lint` e `npm run build` → limpos. Dev server: `/galeria` renderiza com as fotos estáticas (fallback, já que não há `.env.local`), pills e `?categoria=` funcionando como antes; sem pill "Destaques" (não há CMS ainda).
+- [ ] **Step 8: Verificar** — Run: `npm run lint` e `npm run build` → limpos. Dev server: `/galeria/` renderiza com as fotos estáticas (fallback, já que não há `.env.local`), pills e `?categoria=` funcionando como antes; sem pill "Destaques" (não há CMS ainda).
 
 - [ ] **Step 9: Commit**
 
@@ -166,7 +166,7 @@ git commit -m "feat: gallery consumes Sanity photos with Destaques section and s
 
 Sem código; seguir `docs/CMS-SETUP.md` na ordem: criar projeto → `.env.local` + `studio/env.ts` → CORS (`http://localhost:5173` + domínio final) → `cd studio && npm install && npm run dev` (ou `npm run deploy`) → token de escrita → `node scripts/migrate-to-sanity.mjs` → convidar a dona em Members → entregar `docs/GUIA-DA-DONA.md` para ela.
 
-- [ ] **Verificação fim-a-fim:** publicar uma foto de teste pelo painel → aparecer em `/galeria` em segundos; marcar destaque → aparecer na pill/seção "Destaques"; remover `.env.local` e recarregar → site volta ao fallback sem erro no console.
+- [ ] **Verificação fim-a-fim:** publicar uma foto de teste pelo painel → aparecer em `/galeria/` em segundos; marcar destaque → aparecer na pill/seção "Destaques"; remover `.env.local` e recarregar → site volta ao fallback sem erro no console.
 
 ## Self-review
 

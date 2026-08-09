@@ -1,9 +1,24 @@
 {
+  "redirects": [
+    {
+      "source": "/galeria",
+      "destination": "/galeria/",
+      "permanent": true
+    },
+    {
+      "source": "/loja",
+      "destination": "/loja/",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/foto/:asset",
       "destination": "https://cdn.sanity.io/images/csk3c1gf/production/:asset"
     },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }
