@@ -143,7 +143,7 @@ export default function Hero({ active }: HeroProps) {
 
         autoScrollTween = gsap.to(scrollState, {
           y: targetY,
-          duration: 1.0,
+          duration: 0.7,
           ease: 'power2.inOut',
           onUpdate: () => setScrollY(scrollState.y),
           onComplete: () => {
