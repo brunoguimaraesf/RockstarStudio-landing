@@ -7,6 +7,7 @@ type GlowButtonProps = {
   variant?: 'solid' | 'outline' | 'cta' | 'whatsapp'
   external?: boolean
   className?: string
+  onClick?: () => void
 }
 
 export default function GlowButton({
@@ -15,6 +16,7 @@ export default function GlowButton({
   variant = 'outline',
   external,
   className = '',
+  onClick,
 }: GlowButtonProps) {
   const inner = {
     solid:
@@ -31,7 +33,7 @@ export default function GlowButton({
   const content = (
     <>
       {variant !== 'cta' && variant !== 'whatsapp' && (
-        <span className="animate-gradient-shift absolute -inset-[2px] rounded-full opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+        <span className="animate-gradient-shift absolute -inset-[2px] rounded-full opacity-0 transition-opacity duration-300 [animation-play-state:paused] group-hover:opacity-100 group-hover:[animation-play-state:running]" />
       )}
       <span
         className={`relative flex w-full items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm transition-colors duration-300 ${inner}`}
@@ -43,7 +45,7 @@ export default function GlowButton({
 
   if (!external && href.startsWith('/')) {
     return (
-      <Link to={href} className={wrapperClassName}>
+      <Link to={href} onClick={onClick} className={wrapperClassName}>
         {content}
       </Link>
     )
@@ -52,6 +54,7 @@ export default function GlowButton({
   return (
     <a
       href={href}
+      onClick={onClick}
       {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
       className={wrapperClassName}
     >

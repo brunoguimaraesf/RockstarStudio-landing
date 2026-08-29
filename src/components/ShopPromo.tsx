@@ -3,8 +3,8 @@ import GlowButton from './GlowButton'
 
 const PROMO_IMAGES = [
   {
-    src: '/images/works/KAWAI%202.webp',
-    alt: 'Press on kawaii',
+    src: '/images/presson/press%201.jpeg',
+    alt: 'Press on gótico preto e branco',
     className: 'left-[4%] top-[16%] w-32 md:w-40',
     rotate: '-8deg',
     distance: '18px',
@@ -12,8 +12,8 @@ const PROMO_IMAGES = [
     delay: '0s',
   },
   {
-    src: '/images/works/GOTICO%201.webp',
-    alt: 'Press on gótica',
+    src: '/images/presson/press%203.jpeg',
+    alt: 'Press on Hello Kitty rosa',
     className: 'left-[34%] top-[2%] z-10 w-36 md:w-44',
     rotate: '4deg',
     distance: '24px',
@@ -21,8 +21,8 @@ const PROMO_IMAGES = [
     delay: '-1.5s',
   },
   {
-    src: '/images/works/AUTORAL%201.webp',
-    alt: 'Press on autoral',
+    src: '/images/presson/press%202.jpeg',
+    alt: 'Press on kawaii roxo',
     className: 'right-[4%] top-[22%] w-32 md:w-40',
     rotate: '9deg',
     distance: '20px',
@@ -117,7 +117,7 @@ export default function ShopPromo() {
                       src={image.src}
                       alt={image.alt}
                       loading="lazy"
-                      className="aspect-[4/5] w-full rounded-2xl border border-stroke object-cover shadow-[0_18px_50px_rgba(0,0,0,0.5)]"
+                      className="w-full rounded-2xl border border-stroke object-cover shadow-[0_18px_50px_rgba(0,0,0,0.5)]"
                     />
                   </div>
                 ))}

@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import Works from '../components/Works'
 import ShopPromo from '../components/ShopPromo'
+import RockstarAcademy from '../components/RockstarAcademy'
 import ProcessCare from '../components/ProcessCare'
 import AboutArtist from '../components/AboutArtist'
 import ClientTypes from '../components/ClientTypes'
@@ -32,7 +33,7 @@ export default function Index({ showIntro, onIntroComplete }: IndexProps) {
       <Seo
         path="/"
         title="Nail Art e Nail Designer em Rio Verde - GO | Rockstar Studio"
-        description="Rockstar Studio — nail art autoral, nail design, unhas em gel e press on artesanais em Rio Verde - GO. Do clássico ao gótico, kawaii e alternativo. Agende pelo WhatsApp."
+        description="Rockstar Studio — nail art autoral, nail design e unhas alternativas (góticas, kawaii, chrome) em Rio Verde - GO. Unhas em gel, press on artesanais e curso de nail designer. Agende pelo WhatsApp."
       />
       <AnimatePresence>
         {isLoading && <LoadingScreen onComplete={handleComplete} />}
@@ -42,6 +43,7 @@ export default function Index({ showIntro, onIntroComplete }: IndexProps) {
         <Hero active={!isLoading} />
         <Works />
         <ShopPromo />
+        <RockstarAcademy />
         <ProcessCare />
         <AboutArtist />
         <ClientTypes />
