@@ -120,6 +120,11 @@ body {
 .scroll-x-bar {
   scrollbar-width: thin;
   scrollbar-color: rgba(157, 78, 221, 0.55) rgba(255, 255, 255, 0.06);
+  /* Sem barra vertical: definir só overflow-x faz o eixo Y virar `auto`.
+     Fixando overflow-y e limitando o toque a pan horizontal, o arraste
+     vertical volta a rolar a página. */
+  overflow-y: hidden;
+  touch-action: pan-x;
 }
 .scroll-x-bar::-webkit-scrollbar {
   height: 6px;
