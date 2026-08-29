@@ -116,6 +116,23 @@ body {
   background-size: 4px 4px;
 }
 
+/* Barra de rolagem horizontal visível (carrossel mobile da Academy) */
+.scroll-x-bar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(157, 78, 221, 0.55) rgba(255, 255, 255, 0.06);
+}
+.scroll-x-bar::-webkit-scrollbar {
+  height: 6px;
+}
+.scroll-x-bar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 9999px;
+}
+.scroll-x-bar::-webkit-scrollbar-thumb {
+  background: rgba(157, 78, 221, 0.55);
+  border-radius: 9999px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -123,7 +140,8 @@ body {
   .animate-scroll-down,
   .animate-role-fade-in,
   .animate-gradient-shift,
-  .animate-float {
+  .animate-float,
+  .animate-marquee-right {
     animation: none;
   }
 }

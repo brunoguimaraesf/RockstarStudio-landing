@@ -5,7 +5,7 @@ import HlsVideo from './HlsVideo'
 import GlowButton from './GlowButton'
 import {
   BRAND_LOGO_SRC,
-  MOBILE_VIDEO_SRC,
+  HERO_POSTER_SRC,
   VIDEO_SRC,
   WHATSAPP_URL,
 } from '../constants'
@@ -171,7 +171,7 @@ export default function Hero({ active }: HeroProps) {
         <div className="absolute inset-0 z-0">
           <HlsVideo
             src={VIDEO_SRC}
-            mobileSrc={MOBILE_VIDEO_SRC}
+            poster={HERO_POSTER_SRC}
             className="absolute left-1/2 top-1/2 min-h-full min-w-full -translate-x-1/2 -translate-y-1/2 object-cover"
           />
           <div className="hero-overlay absolute inset-0 bg-black/45 opacity-0" />

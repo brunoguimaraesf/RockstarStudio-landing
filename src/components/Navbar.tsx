@@ -1,11 +1,12 @@
 ﻿import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { BRAND_LOGO_SRC, WHATSAPP_URL } from '../constants'
+import { track } from '../lib/tracking'
 
 const LINKS = [
   { label: 'Início', href: '#inicio' },
   { label: 'Trabalhos', href: '#trabalhos' },
-  { label: 'Sobre', href: '#sobre' },
+  { label: 'Sobre', href: '#sobre', desktopOnly: true },
   { label: 'Clientes', href: '#clientes', desktopOnly: true },
   { label: 'Instagram', href: '#instagram', desktopOnly: true },
   { label: 'Contato', href: '#contato', desktopOnly: true },
@@ -60,11 +61,28 @@ export default function Navbar() {
           ))}
           <Link
             to="/loja/"
-            className="rounded-full px-3 py-1.5 text-xs text-muted transition-colors duration-200 hover:bg-stroke/50 hover:text-text-primary sm:px-4 sm:py-2 sm:text-sm"
+            className="shrink-0 rounded-full px-3 py-1.5 text-xs font-medium text-text-primary transition-colors duration-200 hover:bg-stroke/50 sm:px-4 sm:py-2 sm:text-sm"
           >
             Loja
           </Link>
         </nav>
+
+        <span className="mx-1 h-5 w-px shrink-0 bg-stroke" />
+
+        <a
+          href="#academy"
+          onClick={() => track('academy_nav_click')}
+          aria-label="Rockstar Academy, em breve"
+          className="group relative shrink-0"
+        >
+          <span className="flex items-center gap-1.5 rounded-full bg-blood px-3 py-1.5 text-xs font-semibold text-white shadow-[0_0_20px_rgba(196,30,58,0.45)] transition-all duration-300 group-hover:bg-[#d92645] group-hover:shadow-[0_0_34px_rgba(196,30,58,0.7)] sm:px-4 sm:py-2 sm:text-sm">
+            <span aria-hidden className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/80" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
+            </span>
+            Em breve
+          </span>
+        </a>
 
         <span className="mx-1 hidden h-5 w-px shrink-0 bg-stroke md:block" />
 
