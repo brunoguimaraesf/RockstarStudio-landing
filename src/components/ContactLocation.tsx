@@ -43,7 +43,7 @@ export default function ContactLocation() {
             Fale com o <span className="font-display italic text-violet">studio</span>
           </h2>
           <p className="mt-3 max-w-xl text-sm leading-6 text-muted">
-            Agendamentos, dúvidas, referências e bastidores pelos canais principais do Rockstar Studio.
+            Agendamentos, dúvidas e referências pelos canais principais do Rockstar Studio — nail studio em Rio Verde - GO.
           </p>
         </m.div>
 

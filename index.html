@@ -3,8 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/jpeg" href="/images/brand/rockstar-logo.jpeg" />
+    <link rel="apple-touch-icon" href="/images/brand/rockstar-logo.jpeg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0D0D0D" />
+
+    <!-- Indexacao: permite preview de imagem GRANDE nos resultados (bom para um
+         site visual de nail art) e snippet completo. -->
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="author" content="Rockstar Studio" />
+    <meta name="geo.region" content="BR-GO" />
+    <meta name="geo.placename" content="Rio Verde" />
+
     <title>Nail Art e Nail Designer em Rio Verde - GO | Rockstar Studio</title>
 
     <!-- Open Graph / redes sociais: lido por scrapers que NAO executam JS
@@ -25,6 +37,10 @@
       property="og:image"
       content="https://www.rockstarstudio.com.br/images/brand/rockstar-logo.jpeg"
     />
+    <meta
+      property="og:image:alt"
+      content="Rockstar Studio — nail art autoral em Rio Verde - GO"
+    />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
@@ -37,6 +53,10 @@
     <meta
       name="twitter:image"
       content="https://www.rockstarstudio.com.br/images/brand/rockstar-logo.jpeg"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Rockstar Studio — nail art autoral em Rio Verde - GO"
     />
 
     <!-- Dados estruturados do negocio local (NailSalon). Ajuda o Google a
@@ -51,9 +71,21 @@
         "alternateName": "Rockstar Studio Nail Art",
         "description": "Nail art autoral, nail design, unhas em gel e press on artesanais em Rio Verde - GO.",
         "url": "https://www.rockstarstudio.com.br/",
-        "image": "https://www.rockstarstudio.com.br/images/brand/rockstar-logo.jpeg",
+        "image": [
+          "https://www.rockstarstudio.com.br/images/brand/rockstar-logo.jpeg",
+          "https://www.rockstarstudio.com.br/images/works/AUTORAL%201.webp",
+          "https://www.rockstarstudio.com.br/images/works/GOTICO%201.webp"
+        ],
         "logo": "https://www.rockstarstudio.com.br/images/brand/rockstar-logo.jpeg",
+        "slogan": "Nail art autoral com estética, atitude e presença.",
         "telephone": "+5564981624311",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+5564981624311",
+          "contactType": "customer service",
+          "areaServed": "BR",
+          "availableLanguage": "Portuguese"
+        },
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Rio Verde",
@@ -68,6 +100,7 @@
           "Nail Art",
           "Nail Design",
           "Nail designer",
+          "Manicure",
           "Unhas em gel",
           "Unhas alternativas",
           "Unhas góticas",

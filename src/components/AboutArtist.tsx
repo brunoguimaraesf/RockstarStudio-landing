@@ -42,9 +42,10 @@ export default function AboutArtist() {
             <span className="font-display italic text-violet">Rockstar Studio</span>
           </h2>
           <p className="mt-5 max-w-xl text-sm leading-7 text-muted md:text-base">
-            Crio unhas com estética alternativa, dark, kawaii e autoral para quem
-            quer transformar a mão em parte do look. Cada atendimento mistura
-            referência, acabamento técnico e uma leitura do seu estilo.
+            Crio nail art e unhas em gel com estética alternativa, dark, kawaii e
+            autoral para quem quer transformar a mão em parte do look. Como nail
+            designer aqui em Rio Verde - GO, cada atendimento mistura referência,
+            acabamento técnico e uma leitura do seu estilo.
           </p>
           <p className="mt-4 max-w-xl text-sm leading-7 text-muted md:text-base">
             A proposta é sair do básico: formatos marcantes, detalhes cromados,

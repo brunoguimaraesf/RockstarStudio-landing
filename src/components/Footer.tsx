@@ -77,6 +77,10 @@ export default function Footer() {
               @_rockstarstudio
             </GlowButton>
           </div>
+          <p className="mt-3 max-w-md text-xs leading-relaxed text-muted">
+            Nail art, nail designer e manicure autoral em Rio Verde - GO — unhas
+            em gel, estilos alternativos e press on artesanais.
+          </p>
         </div>
 
         <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 border-t border-white/10 px-6 pt-6 md:flex-row">
