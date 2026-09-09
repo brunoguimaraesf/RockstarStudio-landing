@@ -7,12 +7,22 @@ import {
   BRAND_LOGO_SRC,
   HERO_POSTER_SRC,
   VIDEO_SRC,
+  WHATSAPP_PHONE,
   WHATSAPP_URL,
 } from '../constants'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const ROLES = ['góticas', 'chrome', 'stiletto', 'kawaii', 'autorais']
+
+// Mensagem pré-preenchida do botão "Agendar no WhatsApp" da Hero. Com o número
+// configurado abre o WhatsApp já com o texto; sem número, cai no short-link.
+const BOOKING_MESSAGE =
+  'Oi! Achei vocês pelo site e amei os trabalhos 🖤 Quero marcar um horário de nail art!'
+
+const bookingUrl = WHATSAPP_PHONE
+  ? `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(BOOKING_MESSAGE)}`
+  : WHATSAPP_URL
 
 type HeroProps = {
   active: boolean
@@ -217,7 +227,7 @@ export default function Hero({ active }: HeroProps) {
 
             <div className="hero-copy hero-actions flex w-full max-w-[19rem] flex-col items-stretch gap-3 opacity-0 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center">
               <GlowButton
-                href={WHATSAPP_URL}
+                href={bookingUrl}
                 external
                 variant="whatsapp"
                 className="w-full sm:w-auto"
